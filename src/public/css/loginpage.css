@@ -1,0 +1,27 @@
+body {
+    overflow-y: scroll;
+  }
+  
+.header {
+    overflow: hidden;
+    background-color: #8999f7;
+    border-radius: 1px;
+  }
+
+  .header-right {
+    float: right;
+    padding-right: 15px;
+    padding-top: 4px;
+    font-size: 14px; 
+  }
+
+
+  .footer {
+    overflow: hidden;
+    background-color: rgb(152, 163, 152);
+    border-radius: 1px;
+    padding: 8px 10px;
+    width: 100%;
+    height: 50px;
+    padding: 10px;
+  }

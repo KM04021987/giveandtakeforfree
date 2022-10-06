@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="/css/loginpage.css" rel="stylesheet" type="text/css">
+    <script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="/js/createuser.js"></script>
+
+<script type="text/javascript">
+    var statesByCountry = {
+    India: ["","Andaman and Nicobar Islands","Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chandigarh","Chhattisgarh","Dadra and Nagar Haveli","Daman and Diu",
+    "Delhi","Goa","Gujarat","Haryana","Himachal Pradesh","Jammu and Kashmir","Jharkhand","Karnataka","Kerala","Ladakh","Lakshadweep","Madhya Pradesh","Maharashtra","Manipur",
+    "Meghalaya","Mizoram","Nagaland","Odisha","Puducherry","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh","Uttarakhand","West Bengal"],
+    "United States": ["","Alabama","Alaska","American Samoa","Arizona","Arkansas","Baker Island","California","Colorado","Connecticut","Delaware","District of Columbia",
+    "Florida","Georgia","Guam","Hawaii","Howland Island","Idaho","Illinois","Indiana","Iowa","Jarvis Island","Johnston Atoll","Kansas","Kentucky","Kingman Reef",
+    "Louisiana","Maine","Maryland","Massachusetts","Michigan","Midway Atoll","Minnesota","Mississippi","Missouri","Montana","Navassa Island","Nebraska","Nevada",
+    "New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Northern Mariana Islands","Ohio","Oklahoma","Oregon","Palmyra Atoll",
+    "Pennsylvania","Puerto Rico","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","United States Minor Outlying Islands","United States Virgin Islands",
+    "Utah","Vermont","Virginia","Wake Island","Washington","West Virginia","Wisconsin","Wyoming"]
+    }
+    
+    function makeSubmenu(value) {
+    if(value.length==0) 
+        document.getElementById("stateSelect").innerHTML = "<option></option>";
+    else {
+        var statesOptions = "";
+        for(stateId in statesByCountry[value]) {
+            statesOptions+="<option>"+statesByCountry[value][stateId]+"</option>";
+            }
+        document.getElementById("stateSelect").innerHTML = statesOptions;
+        }
+    }
+</script>    
+        
+
+</head>
+<body>
+
+<div class="container">
+    <%- include("#loginheader.ejs"); %>
+    <br>
+    <div class="row d-flex justify-content-center h-100">
+        <div class="col-md-8 col-lg-7 col-xl-6">
+            <img src="../images/donation.jpg" class="img-fluid">
+        </div>
+        <div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
+            <div>
+                <% if(errors != "") { %>
+                    <% errors.forEach((item) => { %>
+                        <div class="alert alert-danger">
+                            <%- item %>
+                        </div>
+                    <% }); %>
+                <% } %>
+            </div>
+            <div>
+                <h1>Registration</h1>
+            </div>
+            <form method="POST" id="createuser">
+                <div class="form-group">
+                    <label>Full Name:</label>
+                    <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Enter Full Name" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number:</label>
+                    <input type="phone" name="phone" class="form-control" id="phone" maxlength="10" placeholder="Enter a Valid Phone Number without Country Code" required>
+                </div>
+                <div class="form-group">
+                    <label>Country:</label>
+                    <select id="countrySelect" class="form-control" name="country" onchange="makeSubmenu(this.value)" required>
+                        <option selected></option>
+                        <option>India</option>
+                        <option>United States</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>State:</label>
+                    <select id="stateSelect" class="form-control" name="state" required>
+                        <option selected></option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>City:</label>
+                    <input type="text" class="form-control" name="city" id="city" placeholder="Enter City" required>
+                </div>
+                <div class="form-group">
+                    <label>PIN or ZIP:</label>
+                    <input type="text" class="form-control" name="pin" id="pin" maxlength="10" placeholder="Enter PIN or ZIP" required>
+                </div>
+                <div class="form-group">
+                    <label>Address:</label>
+                    <input type="text" class="form-control" name="address" id="address" placeholder="Enter Building/Street/Locality/Area (Not Mandatory)">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" class="form-control" id="password" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <label for="passwordConfirmation">Confirm Password:</label>
+                    <input type="password" class="form-control" name="passwordConfirmation" id="passwordConfirmation" placeholder="Password Confirmation" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-sm">Register</button>
+            </form>
+            <hr>
+            <div>
+                If you already have an account <a href="/login">Log in</a>
+            </div>
+            <div>
+                To Home Page? <a href="/">Click Here</a>
+            </div>
+            <br><br>
+        </div>
+    </div>    
+    
+    <%- include("#loginfooter.ejs"); %>
+</div>
+    
+</body>
+</html>

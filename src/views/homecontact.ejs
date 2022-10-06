@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Contact</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link href="/css/homepage.css" rel="stylesheet" type="text/css">
+  <script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+  <script src="/js/askquestion.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <%- include("#homeheader.ejs"); %>
+  <%- include("#homenavbar.ejs"); %>
+
+  <br><br><br><br><br>
+  <p style="font-size: 15px; text-align: center; color: rgb(54, 54, 165);">Please submit your queries with your name and email. We will reply to your queries in your email.</p>
+
+  <div class="row d-flex justify-content-center h-100">
+    <div class="col-md-5 col-lg-5 col-xl-6 offset-xl-0.5">
+      <form method="POST" id="askquestion">
+        <div class="form-group">
+          <input type="text" class="form-control" style="font-size: 14px;" name="fullname" id="fullname" placeholder="Enter your fullname" required>
+        </div>
+        <div class="form-group">
+          <input type="email" class="form-control" style="font-size: 14px;"  name="email"  id="email" maxlength="50" placeholder="Enter your email address" required>
+        </div>
+        <div class="form-group">
+          <textarea id="messagecontent" class="form-control" style="font-size: 14px; width: 100%; height: 165px;" name="messagecontent" maxlength="250" placeholder="Type your queries(Maximum 250 character)" required></textarea>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-outline-primary btn-sm">Submit</button>  
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <br><br><br><br><br><br><br><br><br><br><br>
+  <%- include("#homefooter.ejs"); %>
+</div>
+
+</body>
+</html>
