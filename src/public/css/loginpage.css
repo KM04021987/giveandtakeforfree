@@ -1,11 +1,13 @@
 body {
     overflow-y: scroll;
+    position: relative;
+    min-height: 100vh;
+    padding-bottom: 50px;
   }
   
 .header {
     overflow: hidden;
     background-color: #8999f7;
-    border-radius: 1px;
   }
 
   .header-right {
@@ -19,9 +21,96 @@ body {
   .footer {
     overflow: hidden;
     background-color: rgb(152, 163, 152);
-    border-radius: 1px;
-    padding: 8px 10px;
-    width: 100%;
+    position: absolute;
+    bottom: 0;
+    width: 57.85vw;
     height: 50px;
     padding: 10px;
   }
+
+
+@media (max-width: 400px) { .footer { width: 92vw;} }
+
+@media (min-width: 400px) and (max-width: 420px) { .footer { width: 92.5vw;} }
+@media (min-width: 421px) and (max-width: 440px) { .footer { width: 93vw;} }
+@media (min-width: 441px) and (max-width: 460px) { .footer { width: 93.5vw;} }
+@media (min-width: 461px) and (max-width: 480px) { .footer { width: 94vw;} }
+@media (min-width: 481px) and (max-width: 500px) { .footer { width: 95vw;} }
+
+
+@media (min-width: 501px) and (max-width: 520px) { .footer { width: 95vw;} }
+@media (min-width: 521px) and (max-width: 540px) { .footer { width: 95vw;} }
+@media (min-width: 541px) and (max-width: 560px) { .footer { width: 95vw;} }
+@media (min-width: 561px) and (max-width: 575px) { .footer { width: 95vw;} }
+@media (min-width: 576px) and (max-width: 600px) { .footer { width: 86.5vw;} }
+
+
+
+@media (min-width: 601px) and (max-width: 620px) { .footer { width: 85vw;} }
+@media (min-width: 621px) and (max-width: 640px) { .footer { width: 80vw;} }
+@media (min-width: 641px) and (max-width: 660px) { .footer { width: 78vw;} }
+@media (min-width: 661px) and (max-width: 680px) { .footer { width: 75vw;} }
+@media (min-width: 681px) and (max-width: 700px) { .footer { width: 73vw;} }
+
+@media (min-width: 701px) and (max-width: 720px) { .footer { width: 71vw;} }
+@media (min-width: 721px) and (max-width: 740px) { .footer { width: 69vw;} }
+@media (min-width: 741px) and (max-width: 767px) { .footer { width: 68vw;} }
+@media (min-width: 768px) and (max-width: 780px) { .footer { width: 90vw;} }
+@media (min-width: 781px) and (max-width: 800px) { .footer { width: 87vw;} }
+
+@media (min-width: 801px) and (max-width: 820px) { .footer { width: 85vw;} }
+@media (min-width: 821px) and (max-width: 840px) { .footer { width: 83vw;} }
+@media (min-width: 841px) and (max-width: 860px) { .footer { width: 81vw;} }
+@media (min-width: 861px) and (max-width: 880px) { .footer { width: 79vw;} }
+@media (min-width: 881px) and (max-width: 900px) { .footer { width: 77vw;} }
+
+@media (min-width: 901px) and (max-width: 920px) { .footer { width: 75vw;} }
+@media (min-width: 921px) and (max-width: 940px) { .footer { width: 73vw;} }
+@media (min-width: 941px) and (max-width: 960px) { .footer { width: 72vw;} }
+@media (min-width: 961px) and (max-width: 991px) { .footer { width: 70vw;} }
+@media (min-width: 992px) and (max-width: 1000px) { .footer { width: 94vw;} }
+
+@media (min-width: 1001px) and (max-width: 1020px) { .footer { width: 91vw;} }
+@media (min-width: 1021px) and (max-width: 1040px) { .footer { width: 90vw;} }
+@media (min-width: 1041px) and (max-width: 1060px) { .footer { width: 89vw;} }
+@media (min-width: 1061px) and (max-width: 1080px) { .footer { width: 87vw;} }
+@media (min-width: 1081px) and (max-width: 1100px) { .footer { width: 85vw;} }
+
+
+@media (min-width: 1101px) and (max-width: 1120px) { .footer { width: 84vw;} }
+@media (min-width: 1121px) and (max-width: 1140px) { .footer { width: 82vw;} }
+@media (min-width: 1141px) and (max-width: 1160px) { .footer { width: 81vw;} }
+@media (min-width: 1161px) and (max-width: 1180px) { .footer { width: 80vw;} }
+@media (min-width: 1181px) and (max-width: 1199px) { .footer { width: 79vw;} }
+
+@media (min-width: 1200px) and (max-width: 1220px) { .footer { width: 92vw;} }
+@media (min-width: 1221px) and (max-width: 1240px) { .footer { width: 91vw;} }
+@media (min-width: 1241px) and (max-width: 1260px) { .footer { width: 89vw;} }
+@media (min-width: 1261px) and (max-width: 1280px) { .footer { width: 88vw;} }
+@media (min-width: 1281px) and (max-width: 1300px) { .footer { width: 86vw;} }
+
+@media (min-width: 1301px) and (max-width: 1320px) { .footer { width: 85vw;} }
+@media (min-width: 1321px) and (max-width: 1340px) { .footer { width: 83vw;} }
+@media (min-width: 1341px) and (max-width: 1360px) { .footer { width: 82vw;} }
+@media (min-width: 1361px) and (max-width: 1380px) { .footer { width: 81vw;} }
+@media (min-width: 1381px) and (max-width: 1400px) { .footer { width: 79.5vw;} }
+
+@media (min-width: 1401px) and (max-width: 1420px) { .footer { width: 79vw;} }
+@media (min-width: 1421px) and (max-width: 1440px) { .footer { width: 78vw;} }
+@media (min-width: 1441px) and (max-width: 1460px) { .footer { width: 77vw;} }
+@media (min-width: 1461px) and (max-width: 1480px) { .footer { width: 76vw;} }
+@media (min-width: 1481px) and (max-width: 1500px) { .footer { width: 75vw;} }
+
+@media (min-width: 1501px) and (max-width: 1520px) { .footer { width: 74vw;} }
+@media (min-width: 1521px) and (max-width: 1540px) { .footer { width: 73vw;} }
+@media (min-width: 1541px) and (max-width: 1560px) { .footer { width: 72vw;} }
+@media (min-width: 1561px) and (max-width: 1580px) { .footer { width: 71vw;} }
+@media (min-width: 1581px) and (max-width: 1600px) { .footer { width: 70vw;} }
+
+@media (min-width: 1601px) and (max-width: 1620px) { .footer { width: 69vw;} }
+@media (min-width: 1621px) and (max-width: 1640px) { .footer { width: 68vw;} }
+@media (min-width: 1641px) and (max-width: 1660px) { .footer { width: 67vw;} }
+@media (min-width: 1661px) and (max-width: 1680px) { .footer { width: 66vw;} }
+@media (min-width: 1681px) and (max-width: 1700px) { .footer { width: 65vw;} }
+
+@media (min-width: 1700x) { .footer { width: 57.85vw;} }
