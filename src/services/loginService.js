@@ -149,9 +149,75 @@ let findUserByAccount = (account) => {
     });
 };
 
+let editProfile = (data) => {
+    console.log('loginService: editProfile')
+    return new Promise(async (resolve, reject) => {
+        // check phone number is exist or not
+        ibmdb.open(connStr, function (err, conn) {
+            if (err) throw err;
+            conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".user_info where phone_no=? and account <> ? with ur", [data.phone, data.account], function(err, rows) {
+                if (err) {
+                    reject(err)
+                }
+                if (rows.length > 0) {
+                    reject(`This phone "${data.phone}" has already exist in database. Please choose another phone number. `);
+                } else {
+                    let options = {
+                        provider: 'openstreetmap'
+                    };
+                    let geoCoder = nodeGeocoder(options);
+
+                    let fulladdress = data.state;
+                    fulladdress += ', ';
+                    fulladdress += data.country;
+                    fulladdress += ', ';
+                    fulladdress += data.pin;
+
+                    geoCoder.geocode(fulladdress).then((res)=> {
+                        let row = res[0];
+                        const jsonData = JSON.stringify(row)
+                        const removebracket1 = jsonData.replace('[','')
+                        const removebracket2 = removebracket1.replace(']','')
+                        const jsonParseobj = JSON.parse(removebracket2)
+                        const ulatitude = jsonParseobj.latitude
+                        const ulongitude = jsonParseobj.longitude
+                        const ucountry = jsonParseobj.country
+                        const ustate = jsonParseobj.state
+                        const upin = jsonParseobj.zipcode
+
+                        //Update profile
+                        ibmdb.open(connStr, function (err, conn) {
+                            if (err) throw err; 
+                            if(ucountry === data.country && ustate === data.state && upin === data.pin)  {        
+                            conn.query("UPDATE "+process.env.DB_SCHEMA+".user_info SET phone_no = ?, country = ?, state = ?, city = ?, pin_or_zip = ?, address = ?, latitude = ?, longitude = ? where account = ?;", [data.phone, data.country, data.state, data.city, data.pin, data.address, ulatitude, ulongitude, data.account], function(err, rows) {
+                                if (err) {
+                                    reject(false)
+                                }
+                                resolve("User profile is updated with latitude and longitude");
+                            })
+                            } else {
+                            conn.query("UPDATE "+process.env.DB_SCHEMA+".user_info SET phone_no = ?, country = ?, state = ?, city = ?, pin_or_zip = ?, address = ?, latitude = ?, longitude = ? where account = ?;", [data.phone, data.country, data.state, data.city, data.pin, data.address, ulatitude, ulongitude, data.account], function(err, rows) {
+                                if (err) {
+                                    reject(false)
+                                }
+                                resolve("User profile is updated without latitude and longitude");
+                            })
+                            }
+                        });
+                    })
+                    .catch((err)=> {
+                        console.log(err);
+                    });
+                    }
+                });
+        })
+    })
+};
+
 module.exports = {
     createNewUser: createNewUser,
     findUserByPhone: findUserByPhone,
     comparePassword: comparePassword,
-    findUserByAccount: findUserByAccount
+    findUserByAccount: findUserByAccount,
+    editProfile: editProfile
 };

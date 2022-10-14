@@ -46,6 +46,12 @@ let initWebRoutes = (app) => {
     router.post("/logout", loginController.postLogOut);
     
 /*Register, Login Authentication & Logout - Ends*/
+
+/*My Profile - Starts*/
+    router.get('/get-edit-profile/:id', profileController.getEditProfile);
+    router.put('/put-edit-profile', profileController.putEditProfile);
+
+/*My Profile - Ends*/
     
     return app.use("/", router);
 };
