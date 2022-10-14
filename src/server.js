@@ -21,7 +21,7 @@ app.use(session({
     }
 }));
 
-// Enable body parser post data
+//Enable body parser post data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
