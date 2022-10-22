@@ -60,7 +60,7 @@ let createNewUser = (data) => {
             });
         })
         .catch((err)=> {
-            console.log(err);
+            reject(err);
         });
         }
     });
@@ -206,7 +206,7 @@ let editProfile = (data) => {
                         });
                     })
                     .catch((err)=> {
-                        console.log(err);
+                        reject(err);
                     });
                     }
                 });
@@ -214,10 +214,58 @@ let editProfile = (data) => {
     })
 };
 
+
+let updatePassword = (data) => {
+    console.log('loginService: updatePassword')
+    return new Promise(async (resolve, reject) => {
+        if (data.newpassword == data.passwordConfirmation)  {
+            await bcrypt.compare(data.oldpassword, data.savedPassword).then((isMatch) => {
+                if (isMatch) {
+                    let salt = bcrypt.genSaltSync(10);
+                    let pass = bcrypt.hashSync(data.newpassword, salt);
+                    //update the account
+                    ibmdb.open(connStr, function (err, conn) {
+                        if (err) throw err;           
+                        conn.query("UPDATE "+process.env.DB_SCHEMA+".user_info SET password = ? where account = ?;", [pass, data.account], function(err, rows) {
+                            if (err) {
+                                reject(false)
+                            }
+                            resolve("Updating password is successful");
+                        })
+                    })
+                }
+                else {
+                    reject(`The password that you typed as "Old Password" is not matching with your existing password. `);
+                }
+            })
+        } 
+        else {
+            reject(`New Password and Password Confirmation are not matching. `);      
+        }
+    })
+};
+
+let deleteProfile = (id) => {
+    console.log('loginService: deleteProfile')
+    return new Promise(async (resolve, reject) => {
+            ibmdb.open(connStr, function (err, conn) {
+                if (err) throw err;
+                conn.query("DELETE FROM "+process.env.DB_SCHEMA+".user_info where account=?;", [id], function(err, rows) {
+                    if (err) {
+                        reject(false)
+                    }
+                    resolve("Profile is Successfully deleted");
+                })
+            });
+    });
+};
+
 module.exports = {
     createNewUser: createNewUser,
     findUserByPhone: findUserByPhone,
     comparePassword: comparePassword,
     findUserByAccount: findUserByAccount,
-    editProfile: editProfile
+    editProfile: editProfile,
+    updatePassword: updatePassword,
+    deleteProfile: deleteProfile
 };

@@ -11,8 +11,7 @@ let postContactQueries = (postmessage) => {
             if (err) throw err;
             conn.query("INSERT INTO "+process.env.DB_SCHEMA+".GT_ASK_QUESTION (PERSON_FULLNAME, PERSON_EMAIL, QUESTION_DETAILS) values(?, ?, ?);", [postmessage.fullname, postmessage.email, postmessage.messagecontent],  function(err, rows) {
                 if (err) {
-                    console.log(err)
-                    reject(false)
+                    reject(err)
                 }
                 resolve("Successfully posted the queries");
             })

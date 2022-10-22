@@ -51,6 +51,10 @@ let initWebRoutes = (app) => {
     router.get('/get-edit-profile/:id', profileController.getEditProfile);
     router.put('/put-edit-profile', profileController.putEditProfile);
 
+    router.get('/get-change-password/:id', profileController.getChangePassword);
+    router.put('/put-change-password', profileController.putChangePassword);
+    router.get('/delete-profile/:id', profileController.deleteProfile);
+
 /*My Profile - Ends*/
     
     return app.use("/", router);
