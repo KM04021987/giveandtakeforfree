@@ -64,7 +64,12 @@ body {
 }
 
 
-@media (max-width: 400px) { .footer { width: 92vw;} }
+@media (max-width: 200px) { .footer { width: 85vw;} }
+
+@media (min-width: 201px) and (max-width: 250px) { .footer { width: 87vw;} }
+@media (min-width: 251px) and (max-width: 300px) { .footer { width: 89vw;} }
+@media (min-width: 301px) and (max-width: 350px) { .footer { width: 91vw;} }
+@media (min-width: 351px) and (max-width: 400px) { .footer { width: 92vw;} }
 
 @media (min-width: 400px) and (max-width: 420px) { .footer { width: 92.5vw;} }
 @media (min-width: 421px) and (max-width: 440px) { .footer { width: 93vw;} }
@@ -72,75 +77,122 @@ body {
 @media (min-width: 461px) and (max-width: 480px) { .footer { width: 94vw;} }
 @media (min-width: 481px) and (max-width: 500px) { .footer { width: 95vw;} }
 
-
 @media (min-width: 501px) and (max-width: 520px) { .footer { width: 95vw;} }
 @media (min-width: 521px) and (max-width: 540px) { .footer { width: 95vw;} }
 @media (min-width: 541px) and (max-width: 560px) { .footer { width: 95vw;} }
 @media (min-width: 561px) and (max-width: 575px) { .footer { width: 95vw;} }
-@media (min-width: 576px) and (max-width: 600px) { .footer { width: 86.5vw;} }
+@media (min-width: 576px) and (max-width: 580px) { .footer { width: 88.5vw;} }
+@media (min-width: 581px) and (max-width: 590px) { .footer { width: 87vw;} }
+@media (min-width: 591px) and (max-width: 600px) { .footer { width: 85.5vw;} }
 
+@media (min-width: 601px) and (max-width: 610px) { .footer { width: 84.2vw;} }
+@media (min-width: 611px) and (max-width: 620px) { .footer { width: 83vw;} }
+@media (min-width: 621px) and (max-width: 630px) { .footer { width: 81.5vw;} }
+@media (min-width: 631px) and (max-width: 640px) { .footer { width: 80vw;} }
+@media (min-width: 641px) and (max-width: 650px) { .footer { width: 79.2vw;} }
+@media (min-width: 651px) and (max-width: 660px) { .footer { width: 78.3vw;} }
+@media (min-width: 661px) and (max-width: 670px) { .footer { width: 77vw;} }
+@media (min-width: 671px) and (max-width: 680px) { .footer { width: 76vw;} }
+@media (min-width: 681px) and (max-width: 690px) { .footer { width: 74.5vw;} }
+@media (min-width: 691px) and (max-width: 700px) { .footer { width: 73.5vw;} }
 
-
-@media (min-width: 601px) and (max-width: 620px) { .footer { width: 85vw;} }
-@media (min-width: 621px) and (max-width: 640px) { .footer { width: 80vw;} }
-@media (min-width: 641px) and (max-width: 660px) { .footer { width: 78vw;} }
-@media (min-width: 661px) and (max-width: 680px) { .footer { width: 75vw;} }
-@media (min-width: 681px) and (max-width: 700px) { .footer { width: 73vw;} }
-
-@media (min-width: 701px) and (max-width: 720px) { .footer { width: 71vw;} }
-@media (min-width: 721px) and (max-width: 740px) { .footer { width: 69vw;} }
-@media (min-width: 741px) and (max-width: 767px) { .footer { width: 68vw;} }
+@media (min-width: 701px) and (max-width: 710px) { .footer { width: 72.3vw;} }
+@media (min-width: 711px) and (max-width: 720px) { .footer { width: 71.5vw;} }
+@media (min-width: 721px) and (max-width: 730px) { .footer { width: 70vw;} }
+@media (min-width: 731px) and (max-width: 740px) { .footer { width: 69.5vw;} }
+@media (min-width: 741px) and (max-width: 755px) { .footer { width: 68.5vw;} }
+@media (min-width: 756px) and (max-width: 767px) { .footer { width: 68vw;} }
 @media (min-width: 768px) and (max-width: 780px) { .footer { width: 90vw;} }
-@media (min-width: 781px) and (max-width: 800px) { .footer { width: 87vw;} }
+@media (min-width: 781px) and (max-width: 790px) { .footer { width: 88vw;} }
+@media (min-width: 791px) and (max-width: 800px) { .footer { width: 87vw;} }
 
-@media (min-width: 801px) and (max-width: 820px) { .footer { width: 85vw;} }
-@media (min-width: 821px) and (max-width: 840px) { .footer { width: 83vw;} }
-@media (min-width: 841px) and (max-width: 860px) { .footer { width: 81vw;} }
-@media (min-width: 861px) and (max-width: 880px) { .footer { width: 79vw;} }
-@media (min-width: 881px) and (max-width: 900px) { .footer { width: 77vw;} }
+@media (min-width: 801px) and (max-width: 810px) { .footer { width: 86vw;} }
+@media (min-width: 811px) and (max-width: 820px) { .footer { width: 85vw;} }
+@media (min-width: 821px) and (max-width: 830px) { .footer { width: 84vw;} }
+@media (min-width: 831px) and (max-width: 840px) { .footer { width: 83vw;} }
+@media (min-width: 841px) and (max-width: 850px) { .footer { width: 82vw;} }
+@media (min-width: 851px) and (max-width: 860px) { .footer { width: 81vw;} }
+@media (min-width: 861px) and (max-width: 870px) { .footer { width: 80vw;} }
+@media (min-width: 871px) and (max-width: 880px) { .footer { width: 79vw;} }
+@media (min-width: 881px) and (max-width: 890px) { .footer { width: 78vw;} }
+@media (min-width: 891px) and (max-width: 900px) { .footer { width: 77vw;} }
 
-@media (min-width: 901px) and (max-width: 920px) { .footer { width: 75vw;} }
-@media (min-width: 921px) and (max-width: 940px) { .footer { width: 73vw;} }
-@media (min-width: 941px) and (max-width: 960px) { .footer { width: 72vw;} }
-@media (min-width: 961px) and (max-width: 991px) { .footer { width: 70vw;} }
+@media (min-width: 901px) and (max-width: 910px) { .footer { width: 76vw;} }
+@media (min-width: 911px) and (max-width: 920px) { .footer { width: 75vw;} }
+@media (min-width: 921px) and (max-width: 930px) { .footer { width: 75vw;} }
+@media (min-width: 931px) and (max-width: 940px) { .footer { width: 74vw;} }
+@media (min-width: 941px) and (max-width: 950px) { .footer { width: 73vw;} }
+@media (min-width: 951px) and (max-width: 960px) { .footer { width: 72.5vw;} }
+@media (min-width: 961px) and (max-width: 970px) { .footer { width: 71.5vw;} }
+@media (min-width: 971px) and (max-width: 980px) { .footer { width: 71vw;} }
+@media (min-width: 981px) and (max-width: 991px) { .footer { width: 70vw;} }
 @media (min-width: 992px) and (max-width: 1000px) { .footer { width: 94vw;} }
 
-@media (min-width: 1001px) and (max-width: 1020px) { .footer { width: 91vw;} }
-@media (min-width: 1021px) and (max-width: 1040px) { .footer { width: 90vw;} }
-@media (min-width: 1041px) and (max-width: 1060px) { .footer { width: 89vw;} }
-@media (min-width: 1061px) and (max-width: 1080px) { .footer { width: 87vw;} }
-@media (min-width: 1081px) and (max-width: 1100px) { .footer { width: 85vw;} }
+@media (min-width: 1001px) and (max-width: 1010px) { .footer { width: 93vw;} }
+@media (min-width: 1011px) and (max-width: 1020px) { .footer { width: 92vw;} }
+@media (min-width: 1021px) and (max-width: 1030px) { .footer { width: 91vw;} }
+@media (min-width: 1031px) and (max-width: 1040px) { .footer { width: 90vw;} }
+@media (min-width: 1041px) and (max-width: 1050px) { .footer { width: 89vw;} }
+@media (min-width: 1051px) and (max-width: 1060px) { .footer { width: 88vw;} }
+@media (min-width: 1061px) and (max-width: 1070px) { .footer { width: 87.5vw;} }
+@media (min-width: 1071px) and (max-width: 1080px) { .footer { width: 87vw;} }
+@media (min-width: 1081px) and (max-width: 1090px) { .footer { width: 85.5vw;} }
+@media (min-width: 1091px) and (max-width: 1100px) { .footer { width: 85vw;} }
 
+@media (min-width: 1101px) and (max-width: 1110px) { .footer { width: 84.5vw;} }
+@media (min-width: 1111px) and (max-width: 1120px) { .footer { width: 84vw;} }
+@media (min-width: 1121px) and (max-width: 1130px) { .footer { width: 83vw;} }
+@media (min-width: 1131px) and (max-width: 1140px) { .footer { width: 82vw;} }
+@media (min-width: 1141px) and (max-width: 1150px) { .footer { width: 81.5vw;} }
+@media (min-width: 1151px) and (max-width: 1160px) { .footer { width: 81vw;} }
+@media (min-width: 1161px) and (max-width: 1170px) { .footer { width: 80vw;} }
+@media (min-width: 1171px) and (max-width: 1180px) { .footer { width: 79.5vw;} }
+@media (min-width: 1181px) and (max-width: 1190px) { .footer { width: 79vw;} }
+@media (min-width: 1191px) and (max-width: 1199px) { .footer { width: 78vw;} }
 
-@media (min-width: 1101px) and (max-width: 1120px) { .footer { width: 84vw;} }
-@media (min-width: 1121px) and (max-width: 1140px) { .footer { width: 82vw;} }
-@media (min-width: 1141px) and (max-width: 1160px) { .footer { width: 81vw;} }
-@media (min-width: 1161px) and (max-width: 1180px) { .footer { width: 80vw;} }
-@media (min-width: 1181px) and (max-width: 1199px) { .footer { width: 79vw;} }
+@media (min-width: 1200px) and (max-width: 1210px) { .footer { width: 92.5vw;} }
+@media (min-width: 1211px) and (max-width: 1220px) { .footer { width: 92vw;} }
+@media (min-width: 1221px) and (max-width: 1230px) { .footer { width: 91vw;} }
+@media (min-width: 1231px) and (max-width: 1240px) { .footer { width: 90.5vw;} }
+@media (min-width: 1241px) and (max-width: 1250px) { .footer { width: 89.6vw;} }
+@media (min-width: 1251px) and (max-width: 1260px) { .footer { width: 88.5vw;} }
+@media (min-width: 1261px) and (max-width: 1270px) { .footer { width: 88vw;} }
+@media (min-width: 1271px) and (max-width: 1280px) { .footer { width: 87.3vw;} }
+@media (min-width: 1281px) and (max-width: 1290px) { .footer { width: 87vw;} }
+@media (min-width: 1291px) and (max-width: 1300px) { .footer { width: 86vw;} }
 
-@media (min-width: 1200px) and (max-width: 1220px) { .footer { width: 92vw;} }
-@media (min-width: 1221px) and (max-width: 1240px) { .footer { width: 91vw;} }
-@media (min-width: 1241px) and (max-width: 1260px) { .footer { width: 89vw;} }
-@media (min-width: 1261px) and (max-width: 1280px) { .footer { width: 88vw;} }
-@media (min-width: 1281px) and (max-width: 1300px) { .footer { width: 86vw;} }
+@media (min-width: 1301px) and (max-width: 1310px) { .footer { width: 85vw;} }
+@media (min-width: 1311px) and (max-width: 1320px) { .footer { width: 84.5vw;} }
+@media (min-width: 1321px) and (max-width: 1330px) { .footer { width: 83.9vw;} }
+@media (min-width: 1331px) and (max-width: 1340px) { .footer { width: 83.4vw;} }
+@media (min-width: 1341px) and (max-width: 1350px) { .footer { width: 82.9vw;} }
+@media (min-width: 1351px) and (max-width: 1360px) { .footer { width: 82.2vw;} }
+@media (min-width: 1361px) and (max-width: 1370px) { .footer { width: 81.5vw;} }
+@media (min-width: 1371px) and (max-width: 1380px) { .footer { width: 81vw;} }
+@media (min-width: 1381px) and (max-width: 1390px) { .footer { width: 80.2vw;} }
+@media (min-width: 1391px) and (max-width: 1400px) { .footer { width: 79.8vw;} }
 
-@media (min-width: 1301px) and (max-width: 1320px) { .footer { width: 85vw;} }
-@media (min-width: 1321px) and (max-width: 1340px) { .footer { width: 83vw;} }
-@media (min-width: 1341px) and (max-width: 1360px) { .footer { width: 82vw;} }
-@media (min-width: 1361px) and (max-width: 1380px) { .footer { width: 81vw;} }
-@media (min-width: 1381px) and (max-width: 1400px) { .footer { width: 79.5vw;} }
+@media (min-width: 1401px) and (max-width: 1410px) { .footer { width: 79.5vw;} }
+@media (min-width: 1411px) and (max-width: 1420px) { .footer { width: 79.2vw;} }
+@media (min-width: 1421px) and (max-width: 1430px) { .footer { width: 78.5vw;} }
+@media (min-width: 1431px) and (max-width: 1440px) { .footer { width: 78vw;} }
+@media (min-width: 1441px) and (max-width: 1450px) { .footer { width: 77.5vw;} }
+@media (min-width: 1451px) and (max-width: 1460px) { .footer { width: 77vw;} }
+@media (min-width: 1461px) and (max-width: 1470px) { .footer { width: 76.5vw;} }
+@media (min-width: 1471px) and (max-width: 1480px) { .footer { width: 76vw;} }
+@media (min-width: 1481px) and (max-width: 1490px) { .footer { width: 75.5vw;} }
+@media (min-width: 1491px) and (max-width: 1500px) { .footer { width: 75vw;} }
 
-@media (min-width: 1401px) and (max-width: 1420px) { .footer { width: 79vw;} }
-@media (min-width: 1421px) and (max-width: 1440px) { .footer { width: 78vw;} }
-@media (min-width: 1441px) and (max-width: 1460px) { .footer { width: 77vw;} }
-@media (min-width: 1461px) and (max-width: 1480px) { .footer { width: 76vw;} }
-@media (min-width: 1481px) and (max-width: 1500px) { .footer { width: 75vw;} }
-
-@media (min-width: 1501px) and (max-width: 1520px) { .footer { width: 74vw;} }
-@media (min-width: 1521px) and (max-width: 1540px) { .footer { width: 73vw;} }
-@media (min-width: 1541px) and (max-width: 1560px) { .footer { width: 72vw;} }
-@media (min-width: 1561px) and (max-width: 1580px) { .footer { width: 71vw;} }
-@media (min-width: 1581px) and (max-width: 1600px) { .footer { width: 70vw;} }
+@media (min-width: 1501px) and (max-width: 1510px) { .footer { width: 74.5vw;} }
+@media (min-width: 1511px) and (max-width: 1520px) { .footer { width: 74vw;} }
+@media (min-width: 1521px) and (max-width: 1530px) { .footer { width: 73.5vw;} }
+@media (min-width: 1531px) and (max-width: 1540px) { .footer { width: 73vw;} }
+@media (min-width: 1541px) and (max-width: 1550px) { .footer { width: 72.5vw;} }
+@media (min-width: 1551px) and (max-width: 1560px) { .footer { width: 72vw;} }
+@media (min-width: 1561px) and (max-width: 1570px) { .footer { width: 71.5vw;} }
+@media (min-width: 1571px) and (max-width: 1580px) { .footer { width: 71vw;} }
+@media (min-width: 1581px) and (max-width: 1590px) { .footer { width: 70.5vw;} }
+@media (min-width: 1591px) and (max-width: 1600px) { .footer { width: 70vw;} }
 
 @media (min-width: 1601px) and (max-width: 1620px) { .footer { width: 69vw;} }
 @media (min-width: 1621px) and (max-width: 1640px) { .footer { width: 68vw;} }
