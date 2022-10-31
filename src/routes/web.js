@@ -50,10 +50,12 @@ let initWebRoutes = (app) => {
 /*My Profile - Starts*/
     router.get('/get-edit-profile/:id', profileController.getEditProfile);
     router.put('/put-edit-profile', profileController.putEditProfile);
-
     router.get('/get-change-password/:id', profileController.getChangePassword);
     router.put('/put-change-password', profileController.putChangePassword);
     router.get('/delete-profile/:id', profileController.deleteProfile);
+
+    router.get("/get-give-something/:id", profileController.getGiveSomething);
+    //router.post("/post-give-something/:id", profileController.uploadImage.single('uploaded_image'), profileController.postGiveSomething);
 
 /*My Profile - Ends*/
     

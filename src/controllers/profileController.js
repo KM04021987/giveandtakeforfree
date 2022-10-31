@@ -163,6 +163,14 @@ let deleteProfile = async (req, res) => {
     }
 };
 
+let getGiveSomething = async (req, res) => {
+    console.log('profileController: getGiveSomething')
+    const account = req.params.id
+    return res.render("usergivesomething.ejs", {
+        account: account
+    })
+}
+
 
 module.exports = {
     handlePage: handlePage,
@@ -170,5 +178,6 @@ module.exports = {
     putEditProfile: putEditProfile,
     getChangePassword: getChangePassword,
     putChangePassword: putChangePassword,
-    deleteProfile: deleteProfile
+    deleteProfile: deleteProfile,
+    getGiveSomething: getGiveSomething
 }
