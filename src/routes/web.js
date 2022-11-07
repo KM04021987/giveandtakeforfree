@@ -55,7 +55,7 @@ let initWebRoutes = (app) => {
     router.get('/delete-profile/:id', profileController.deleteProfile);
 
     router.get("/get-give-something/:id", profileController.getGiveSomething);
-    //router.post("/post-give-something/:id", profileController.uploadImage.single('uploaded_image'), profileController.postGiveSomething);
+    router.post("/post-give-something/:id", profileController.uploadImage.single('uploaded_image'), profileController.postGiveSomething);
 
 /*My Profile - Ends*/
     
