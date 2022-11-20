@@ -125,9 +125,32 @@ let getPickupRequestNumber = (account) => {
     });
 };
 
+let extractPickupRequest = (account) => {
+    console.log('profileService: extractPickupRequest')
+    return new Promise((resolve, reject) => {
+        try {
+            ibmdb.open(connStr, function (err, conn) {
+                if (err) throw err;
+                let count = process.env.FETCH_ROW_COUNT;
+                conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".ITEM_INFO WHERE giver_account=? ORDER BY LAST_UPDATED_TS DESC fetch first ? rows only with ur;", [account, count], function(err, rows) {
+                    if (err) {
+                        console.log(err)
+                        reject(err)
+                    }
+                    let data = rows;
+                    resolve(data);
+                })
+            });
+        } catch (err) {
+            reject(err);
+        }
+    });
+};
+
 
 module.exports = {
     createPickupRequestWithFile: createPickupRequestWithFile,
     createPickupRequestWithoutFile: createPickupRequestWithoutFile,
-    getPickupRequestNumber: getPickupRequestNumber
+    getPickupRequestNumber: getPickupRequestNumber,
+    extractPickupRequest: extractPickupRequest
 };

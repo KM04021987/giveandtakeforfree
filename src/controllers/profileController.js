@@ -260,6 +260,19 @@ let postGiveSomething = async (req, res) => {
 };
 
 
+let getGivingHistory = async (req, res) => {
+    console.log('profileController: getGivingHistory')
+    const account = req.params.id
+
+    profileService.extractPickupRequest(account).then((data) => {
+        return res.render("usergivinghistory.ejs",{
+            account: account,
+            userData: data
+        });
+    }).catch(error => {
+        console.log('error in getGivingHistory')
+    });
+};
 
 module.exports = {
     handlePage: handlePage,
@@ -270,5 +283,6 @@ module.exports = {
     deleteProfile: deleteProfile,
     getGiveSomething: getGiveSomething,
     uploadImage: uploadImage,
-    postGiveSomething: postGiveSomething
+    postGiveSomething: postGiveSomething,
+    getGivingHistory: getGivingHistory
 }
