@@ -147,10 +147,122 @@ let extractPickupRequest = (account) => {
     });
 };
 
+let getGivingHistoryForEditPage = (itemno) => {
+    console.log('profileService: getGivingHistoryForEditPage')
+    return new Promise((resolve, reject) => {
+        try {
+            ibmdb.open(connStr, function (err, conn) {
+                if (err) throw err;
+                conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info WHERE item_no=? with ur;", [itemno], function(err, rows) {
+                    if (err) {
+                        console.log(err)
+                        reject(err)
+                    }
+                    let pickup = rows;
+                    resolve(pickup);
+                })
+            });
+        } catch (err) {
+            reject(err);
+        }
+    });
+};
+
+let updatePickupInfoWithFile = (data, cloudinary_public_id, cloudinary_secure_url) => {
+    console.log('profileService: updatePickupInfoWithFile')
+    return new Promise(async (resolve, reject) => {
+            ibmdb.open(connStr, function (err, conn) {
+                if (err) throw err;
+                conn.query("UPDATE "+process.env.DB_SCHEMA+".item_info SET GIVER_ACCOUNT = ?, ITEM_CATEGORY = ?, ITEM_SUBCATEGORY= ?, ITEM_NAME= ?, GIVER_COUNTRY= ?, GIVER_STATE= ?, GIVER_CITY= ?, GIVER_PIN_OR_ZIP= ?, GIVER_ADDRESS= ?, GIVER_PHONE_NO= ?, IMAGE_CLOUDINARY_PUBLIC_ID = ?, IMAGE_CLOUDINARY_SECURE_URL = ? where item_no = ?;", [data.account, data.category, data.subcategory, data.itemname, data.country, data.state, data.city, data.pin, data.address, data.phone, cloudinary_public_id, cloudinary_secure_url, data.itemno], function(err, rows) {
+                    if (err) {
+                        console.log(err)
+                        reject(false)
+                    }
+                    resolve("Successfully updated pickup request(With File)");
+                })
+            });
+    });
+};
+
+let updatePickupInfoWithoutFile = (data) => {
+    console.log('pickuprequestService: updatePickupInfoWithoutFile')
+    return new Promise(async (resolve, reject) => {
+            ibmdb.open(connStr, function (err, conn) {
+                if (err) throw err;
+                conn.query("UPDATE "+process.env.DB_SCHEMA+".item_info SET GIVER_ACCOUNT = ?, ITEM_CATEGORY = ?, ITEM_SUBCATEGORY= ?, ITEM_NAME= ?, GIVER_COUNTRY= ?, GIVER_STATE= ?, GIVER_CITY= ?, GIVER_PIN_OR_ZIP= ?, GIVER_ADDRESS= ?, GIVER_PHONE_NO= ? where item_no = ?;", [data.account, data.category, data.subcategory, data.itemname, data.country, data.state, data.city, data.pin, data.address, data.phone, data.itemno], function(err, rows) {
+                    if (err) {
+                        console.log(err)
+                        reject(false)
+                    }
+                    resolve("Successfully updated pickup request(Without File)");
+                })
+            });
+    });
+};
+
+
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET
+});
+
+let deletePhysicalFile = (itemno) => {
+    console.log('profileService: deletePhysicalFile')
+    return new Promise((resolve, reject) => {
+        try {
+            ibmdb.open(connStr, function (err, conn) {
+                if (err) throw err;
+                conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info where item_no=? with ur;", [itemno], function(err, rows) {
+                    if (err) {
+                        reject(err)
+                    }
+                    else {
+                    let pickupinfo = rows;
+                    const jsonData = JSON.stringify(pickupinfo)
+                    const removebracket1 = jsonData.replace('[','')
+                    const removebracket2 = removebracket1.replace(']','')
+                    const jsonParseobj = JSON.parse(removebracket2)
+                    const public_id = jsonParseobj.IMAGE_CLOUDINARY_PUBLIC_ID
+                    if (public_id > '') {
+                        cloudinary.uploader.destroy(public_id, function(result) { console.log('File is removed from Cloudinary') });
+
+                    }
+                    resolve();
+                    }
+                })
+            });
+        } catch (err) {
+            reject(err);
+        }
+    });
+};
+
+let deletePickupById = (id) => {
+    console.log('profileService: deletePickupById')
+    return new Promise(async (resolve, reject) => {
+        ibmdb.open(connStr, function (err, conn) {
+            if (err) throw err;
+            conn.query("DELETE FROM "+process.env.DB_SCHEMA+".item_info where item_no=?;", [id], function(err, rows) {
+                if (err) {
+                    console.log(err)
+                    reject(false)
+                }
+                resolve("Successfully deleted pickup request");
+            })
+        });
+    });
+};
 
 module.exports = {
     createPickupRequestWithFile: createPickupRequestWithFile,
     createPickupRequestWithoutFile: createPickupRequestWithoutFile,
     getPickupRequestNumber: getPickupRequestNumber,
-    extractPickupRequest: extractPickupRequest
+    extractPickupRequest: extractPickupRequest,
+    getGivingHistoryForEditPage: getGivingHistoryForEditPage,
+    deletePhysicalFile: deletePhysicalFile,
+    updatePickupInfoWithFile: updatePickupInfoWithFile,
+    updatePickupInfoWithoutFile: updatePickupInfoWithoutFile,
+    deletePickupById: deletePickupById
 };

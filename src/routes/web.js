@@ -58,6 +58,9 @@ let initWebRoutes = (app) => {
     router.post("/post-give-something/:id", profileController.uploadImage.single('uploaded_image'), profileController.postGiveSomething);
 
     router.get("/get-giving-history/:id", profileController.getGivingHistory);
+    router.get('/get-edit-giving-history/:id', profileController.getEditGivingHistory);
+    router.post('/put-edit-giving-history/:id', profileController.uploadImage.single('uploaded_image'), profileController.putEditGivingHistory);
+    router.get('/delete-giving-history/:id', profileController.deleteGivingHistory);
 
 /*My Profile - Ends*/
     

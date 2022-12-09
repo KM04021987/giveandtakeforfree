@@ -274,6 +274,128 @@ let getGivingHistory = async (req, res) => {
     });
 };
 
+let getEditGivingHistory = async (req, res) => {
+    console.log('profileController: getEditGivingHistory')
+    const itemno = req.params.id
+    await profileService.getGivingHistoryForEditPage(itemno).then((pickup) => {
+    const jsonData = JSON.stringify(pickup)
+    const removebracket1 = jsonData.replace('[','')
+    const removebracket2 = removebracket1.replace(']','')
+    const jsonParseobj = JSON.parse(removebracket2)
+
+    const jsonITEM_NO = jsonParseobj.ITEM_NO
+    const jsonGIVER_ACCOUNT = jsonParseobj.GIVER_ACCOUNT
+    const jsonITEM_CATEGORY = jsonParseobj.ITEM_CATEGORY
+    const jsonITEM_SUBCATEGORY = jsonParseobj.ITEM_SUBCATEGORY
+    const jsonITEM_NAME = jsonParseobj.ITEM_NAME
+    const jsonGIVER_COUNTRY = jsonParseobj.GIVER_COUNTRY
+    const jsonGIVER_STATE = jsonParseobj.GIVER_STATE
+    const jsonGIVER_CITY = jsonParseobj.GIVER_CITY
+    const jsonGIVER_PIN_OR_ZIP = jsonParseobj.GIVER_PIN_OR_ZIP
+    const jsonGIVER_ADDRESS = jsonParseobj.GIVER_ADDRESS
+    const jsonGIVER_PHONE_NO = jsonParseobj.GIVER_PHONE_NO
+    const jsonIMAGE_CLOUDINARY_SECURE_URL = jsonParseobj.IMAGE_CLOUDINARY_SECURE_URL
+
+    return res.render("usergivinghistoryedit.ejs", {
+        account: jsonGIVER_ACCOUNT,
+        ITEM_NO: jsonITEM_NO,
+        ITEM_CATEGORY: jsonITEM_CATEGORY,
+        ITEM_SUBCATEGORY: jsonITEM_SUBCATEGORY,
+        ITEM_NAME: jsonITEM_NAME,
+        GIVER_COUNTRY: jsonGIVER_COUNTRY,
+        GIVER_STATE: jsonGIVER_STATE,
+        GIVER_CITY: jsonGIVER_CITY,
+        GIVER_PIN_OR_ZIP: jsonGIVER_PIN_OR_ZIP,
+        GIVER_ADDRESS: jsonGIVER_ADDRESS,
+        GIVER_PHONE_NO: jsonGIVER_PHONE_NO,
+        IMAGE_CLOUDINARY_SECURE_URL: jsonIMAGE_CLOUDINARY_SECURE_URL
+    })
+    }).catch(error => {
+    console.log('error while fetching giving history')
+    });
+};
+
+let putEditGivingHistory = async (req, res) => {
+    console.log('profileController: putEditGivingHistory')
+    const account = req.body.account
+    const radiobutton = req.body.radiobutton
+    const itemno = req.params.id
+
+    let item = {
+        account: account,
+        itemno: itemno,
+        category: req.body.category,
+        subcategory: req.body.subcategory,
+        itemname: req.body.itemname,
+        country: req.body.country,
+        state: req.body.state,
+        city: req.body.city,
+        pin: req.body.pin,
+        address: req.body.address,
+        phone: req.body.phone
+    };
+
+    if (radiobutton === 'yes') {
+        const result = await cloudinary.uploader.upload(req.file.path);
+        const cloudinary_public_id = result.public_id
+        const cloudinary_secure_url = result.secure_url
+        await profileService.deletePhysicalFile(itemno).then(() => {
+            profileService.updatePickupInfoWithFile(item, cloudinary_public_id, cloudinary_secure_url).then(() => {
+                profileService.extractPickupRequest(account).then((data) => {
+                    return res.render("usergivinghistory.ejs",{
+                        account: account,
+                        userData: data
+                    });
+                }).catch(error => {
+                    console.log('error while extracting list of pickup requests')
+                });
+            }).catch(error => {
+                console.log("error while updating the pickup request(With File)")
+            });
+        }).catch(error => {
+            console.log("error while deleting the Physical File if exists")
+        });
+    }
+    else {
+        await profileService.updatePickupInfoWithoutFile(item).then(() => {
+            profileService.extractPickupRequest(account).then((data) => {
+                return res.render("usergivinghistory.ejs",{
+                    account: account,
+                    userData: data
+                });
+            }).catch(error => {
+                console.log('error while extracting list of pickup requests')
+            });
+        }).catch(error => {
+            console.log("error while updating the pickup request(Without File)")
+        });
+    }
+};
+
+let deleteGivingHistory = async (req, res) => {
+    console.log('profileController: deleteGivingHistory')
+    const jsonData = JSON.stringify(req.user)
+    const jsonParseObj = JSON.parse(jsonData)
+    const jsonaccount = jsonParseObj.ACCOUNT
+    await profileService.deletePhysicalFile(req.params.id).then(() => {
+        profileService.deletePickupById(req.params.id).then(() => {
+            profileService.extractPickupRequest(jsonaccount).then((data) => {
+                return res.render("usergivinghistory.ejs",{
+                    account: jsonaccount,
+                    userData: data
+                });
+            }).catch(error => {
+                console.log('error while extracting the list of pickup requests')
+            });
+        }).catch(error => {
+            console.log("error while deleting the pickup request from DB2 table")
+        });
+    }).catch(error => {
+        console.log("error while deleting the Physical File if exists")
+    });
+};
+
+
 module.exports = {
     handlePage: handlePage,
     getEditProfile: getEditProfile,
@@ -284,5 +406,8 @@ module.exports = {
     getGiveSomething: getGiveSomething,
     uploadImage: uploadImage,
     postGiveSomething: postGiveSomething,
-    getGivingHistory: getGivingHistory
+    getGivingHistory: getGivingHistory,
+    getEditGivingHistory: getEditGivingHistory,
+    putEditGivingHistory: putEditGivingHistory,
+    deleteGivingHistory: deleteGivingHistory
 }
