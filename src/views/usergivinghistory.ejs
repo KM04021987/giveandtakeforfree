@@ -117,6 +117,21 @@
             </div>
           <% } %>
         </div>
+        <br>  
+        <div class="row">
+          <div class="col-sm-3"><h6 style="font-size: 14px;">Person who is interested </h6></div>
+          <% if (data.TAKER_ACCOUNT3 > '') { %>
+            <div class="col-sm-9" style="font-size: 14px;">
+              <%=data.TAKER_ACCOUNT1%>
+              <%=data.TAKER_ACCOUNT2%>
+              <%=data.TAKER_ACCOUNT3%>
+            </div>
+          <% } else {%>
+            <div class="col-sm-9">
+              None
+            </div>
+          <% } %>
+        </div>
 
         <br>
 

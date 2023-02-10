@@ -395,6 +395,21 @@ let deleteGivingHistory = async (req, res) => {
     });
 };
 
+let getFindSomething = async (req, res) => {
+    console.log('profileController: getFindSomething')
+    const account = req.params.id
+    const jsonData = JSON.stringify(req.user)
+    const jsonParseObj = JSON.parse(jsonData)
+    const country = jsonParseObj.COUNTRY
+    const state = jsonParseObj.STATE
+    const pin = jsonParseObj.PIN_OR_ZIP
+    return res.render("userfindsomething.ejs", {
+        account: account,
+        country: country,
+        state: state,
+        pin: pin
+    })
+}
 
 module.exports = {
     handlePage: handlePage,
@@ -409,5 +424,6 @@ module.exports = {
     getGivingHistory: getGivingHistory,
     getEditGivingHistory: getEditGivingHistory,
     putEditGivingHistory: putEditGivingHistory,
-    deleteGivingHistory: deleteGivingHistory
+    deleteGivingHistory: deleteGivingHistory,
+    getFindSomething: getFindSomething
 }
