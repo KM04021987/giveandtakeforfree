@@ -32,6 +32,33 @@ else {
     document.getElementById("stateSelect").innerHTML = statesOptions;
     }
 }
+
+var subcategoryByCategory = {
+"Any": ["","Any"],
+"Electronics": ["","Mobile","Laptop","TV","Camera","Others"],
+"Babies Stuffs": ["","Dress","Toys","Others"],
+"Furnitures": ["","Table","Chair","Sofa","Others"],
+"Clothes and Shoes": ["","Mens Clothes","Womens Clothes", "Shoes","Others"],
+"Vehicles": ["","Cycle","Bike","Others"],
+"Books": ["","For Students","Novels","Others"],
+"Sports Equipments": ["","Bat","Ball","football","Others"],
+"Tickets and Giftcards": ["","Movies","Shows","Travel","Others"],
+"Food and Medicines": ["","Packaged food","Others"],
+"Others": ["","Others"]
+}
+
+function categorySubmenu(value) {
+if(value.length==0) 
+    document.getElementById("subcategorySelect").innerHTML = "<option></option>";
+else {
+    var subcategoryOptions = "";
+    for(subcategoryId in subcategoryByCategory[value]) {
+        subcategoryOptions+="<option>"+subcategoryByCategory[value][subcategoryId]+"</option>";
+        }
+    document.getElementById("subcategorySelect").innerHTML = subcategoryOptions;
+    }
+}
+
 </script>        
 </head>
 
@@ -42,6 +69,35 @@ else {
     <%- include("#userprofilenavbar.ejs"); %>
     <div class="col-10 mx-auto">
     <form method="POST" action="/show-list-of-givers/<%=account%>">
+        <br>
+        <br>
+        <br>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label style="font-size: 14px;">Category</label>
+                <select id="categorySelect" class="form-control" name="category" onchange="categorySubmenu(this.value)" required>
+                    <option selected></option>
+                    <option>Any</option>
+                    <option>Electronics</option>
+                    <option>Babies Stuffs</option>
+                    <option>Furnitures</option>
+                    <option>Clothes and Shoes</option>
+                    <option>Vehicles</option>
+                    <option>Books</option>
+                    <option>Sports Equipments</option>
+                    <option>Tickets and Giftcards</option>
+                    <option>Food and Medicines</option>
+                    <option>Others</option>       
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label style="font-size: 14px;">Sub-category</label>
+                <select id="subcategorySelect" class="form-control" name="subcategory" required>
+                    <option selected></option>
+                </select>
+            </div>
+        </div>
+        
         <br>
         <div class="row justify-content-center">
             <p>&nbsp;&nbsp;&nbsp;Please enter country, state and Pin or Zip to search giver nearby.</p>
@@ -79,7 +135,7 @@ else {
                 <input type="text" style="font-size: 14px;" class="form-control" id="pin" name="pin" maxlength="10" value="<%=pin%>" required>
             </div>
         </div>
-
+        <br>
         <div class="text-center">
             <button type="submit" class="btn btn-outline-primary btn-sm">Search</button>  
         </div>
