@@ -255,6 +255,93 @@ let deletePickupById = (id) => {
     });
 };
 
+let getGiversList = (findByInfo) => {
+    console.log('profileService: getGiversList')
+    return new Promise((resolve, reject) => {
+        try {
+            let options = {
+                provider: 'openstreetmap'
+            };
+            let geoCoder = nodeGeocoder(options);
+
+            let fulladdress = findByInfo.state;
+            fulladdress += ', ';
+            fulladdress += findByInfo.country;
+            fulladdress += ', ';
+            fulladdress += findByInfo.pin;
+
+            geoCoder.geocode(fulladdress).then((res)=> {
+                let row = res[0];
+                const jsonData = JSON.stringify(row)
+                const removebracket1 = jsonData.replace('[','')
+                const removebracket2 = removebracket1.replace(']','')
+                const jsonParseobj = JSON.parse(removebracket2)
+                const flatitude = jsonParseobj.latitude
+                const flongitude = jsonParseobj.longitude
+
+                let latrange = process.env.LATITUDE_RANGE;
+                let lonrange = process.env.LONGITUDE_RANGE;
+                let minlat = flatitude - latrange
+                let maxlat = (+flatitude) + (+latrange)
+                let minlon = flongitude - lonrange
+                let maxlon = (+flongitude) + (+lonrange)
+
+            ibmdb.open(connStr, function (err, conn) {
+                if (err) throw err;
+                let count = process.env.FETCH_ROW_COUNT;
+                if(findByInfo.category == 'Any') {
+                    if(flatitude != null && flongitude != null)  { 
+                    conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info WHERE (giver_latitude >= ? and giver_latitude <= ?) and (giver_longitude >= ? and giver_longitude <= ?) and GIVER_ACCOUNT <> ?  fetch first ? rows only with ur;", [minlat, maxlat, minlon, maxlon, findByInfo.account, count], function(err, rows) {
+                        if (err) {
+                            console.log(err)
+                            reject(err)
+                        }
+                        let data = rows;
+                        resolve(data);
+                    })
+                    } else {
+                    conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info WHERE Country = ? and state = ? and PIN_OR_ZIP = ?  and GIVER_ACCOUNT <> ? fetch first ? rows only with ur;", [findByInfo.country, findByInfo.state, findByInfo.pin, findByInfo.account, count], function(err, rows) {
+                        if (err) {
+                            console.log(err)
+                            reject(err)
+                        }
+                        let data = rows;
+                        resolve(data);
+                    })
+                    }
+                } else {
+                    if(flatitude != null && flongitude != null)  { 
+                        conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info WHERE (giver_latitude >= ? and giver_latitude <= ?) and (giver_longitude >= ? and giver_longitude <= ?)  and item_category = ? and item_subcategory = ? and GIVER_ACCOUNT <> ? fetch first ? rows only with ur;", [minlat, maxlat, minlon, maxlon, findByInfo.category, findByInfo.subcategory, findByInfo.account, count], function(err, rows) {
+                            if (err) {
+                                console.log(err)
+                                reject(err)
+                            }
+                            let data = rows;
+                            resolve(data);
+                        })
+                        } else {
+                        conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info WHERE Country = ? and state = ? and PIN_OR_ZIP = ?  and item_category = ? and item_subcategory = ? and GIVER_ACCOUNT <> ? fetch first ? rows only with ur;", [findByInfo.country, findByInfo.state, findByInfo.pin, findByInfo.category, findByInfo.subcategory, findByInfo.account, count], function(err, rows) {
+                            if (err) {
+                                console.log(err)
+                                reject(err)
+                            }
+                            let data = rows;
+                            resolve(data);
+                        })
+                    }                    
+                }
+            });
+        })
+        .catch((err)=> {
+            console.log(err);
+        });
+        } catch (err) {
+            reject(err);
+        }
+    });
+};
+
+
 module.exports = {
     createPickupRequestWithFile: createPickupRequestWithFile,
     createPickupRequestWithoutFile: createPickupRequestWithoutFile,
@@ -264,5 +351,6 @@ module.exports = {
     deletePhysicalFile: deletePhysicalFile,
     updatePickupInfoWithFile: updatePickupInfoWithFile,
     updatePickupInfoWithoutFile: updatePickupInfoWithoutFile,
-    deletePickupById: deletePickupById
+    deletePickupById: deletePickupById,
+    getGiversList: getGiversList
 };

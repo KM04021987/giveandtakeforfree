@@ -411,6 +411,28 @@ let getFindSomething = async (req, res) => {
     })
 }
 
+let showListOfGivers = async (req, res) => {
+    console.log('profileController: showListOfGivers')
+    let account = req.params.id
+    let findByInfo = {
+        account: account,
+        category: req.body.category,
+        subcategory: req.body.subcategory,
+        country: req.body.country,
+        state: req.body.state,
+        pin: req.body.pin
+    };
+    await profileService.getGiversList(findByInfo).then((data) => {
+    return res.render("userlistofgivers.ejs", {
+        userData: data,
+        account: account
+    })
+    }).catch(error => {
+    console.log('error while finding givers info')
+    });
+};
+
+
 module.exports = {
     handlePage: handlePage,
     getEditProfile: getEditProfile,
@@ -425,5 +447,6 @@ module.exports = {
     getEditGivingHistory: getEditGivingHistory,
     putEditGivingHistory: putEditGivingHistory,
     deleteGivingHistory: deleteGivingHistory,
-    getFindSomething: getFindSomething
+    getFindSomething: getFindSomething,
+    showListOfGivers: showListOfGivers
 }

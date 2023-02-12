@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Giving History</title>
+    <title>List of Givers</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
     <link href="/css/userprofilepage.css" rel="stylesheet" type="text/css">
@@ -12,7 +12,7 @@
 <style>
 .accordion {
   background-color: rgb(244, 250, 252);
-  color: rgb(50, 50, 206);
+  color: rgb(75, 75, 202);
   cursor: pointer;
   padding: 5px;
   padding-left: 10px;
@@ -56,6 +56,7 @@
 </head>
 
 <body>
+
 <div class="container">
     <%- include("#userprofileheader.ejs"); %>
     <%- include("#userprofilenavbar.ejs"); %>
@@ -87,20 +88,24 @@
               <%=data.ITEM_NAME%>&nbsp;&nbsp;(<%=data.ITEM_CATEGORY%>/<%=data.ITEM_SUBCATEGORY%>)
           </div>
         </div>
+        <br>
         <div class="row">
             <div class="col-sm-3"><h6 style="font-size: 14px;">Item Posted on (Date & Time)</h6></div>
             <div class="col-sm-9" style="font-size: 14px;">
                 <%=data.ADD_TS.substring(0,10)%> & <%=data.ADD_TS.substring(11,19)%>
             </div>
         </div>
+        <br> 
         <div class="row">
             <div class="col-sm-3"><h6 style="font-size: 14px;">Pickup Location</h6></div>
             <div class="col-sm-9" style="font-size: 14px;"><%=data.GIVER_ADDRESS%><br><%=data.GIVER_CITY%>, <%=data.GIVER_STATE%><br><%=data.GIVER_COUNTRY%> <%=data.GIVER_PIN_OR_ZIP%></div>
         </div>
+        <br> 
         <div class="row">
             <div class="col-sm-3"><h6 style="font-size: 14px;">Contact Number</h6></div>
             <div class="col-sm-9" style="font-size: 14px;"><%=data.GIVER_PHONE_NO%></div>
         </div>
+        <br>  
         <div class="row">
           <div class="col-sm-3"><h6 style="font-size: 14px;">Photo of the Item</h6></div>
           <% if (data.IMAGE_CLOUDINARY_SECURE_URL > '') { %>
@@ -113,27 +118,6 @@
             </div>
           <% } %>
         </div>
-        <div class="row">
-          <div class="col-sm-3"><h6 style="font-size: 14px;">Person who is interested </h6></div>
-          <% if (data.TAKER_ACCOUNT3 > '') { %>
-            <div class="col-sm-9" style="font-size: 14px;">
-              <%=data.TAKER_ACCOUNT1%>
-              <%=data.TAKER_ACCOUNT2%>
-              <%=data.TAKER_ACCOUNT3%>
-            </div>
-          <% } else {%>
-            <div class="col-sm-9">
-              None
-            </div>
-          <% } %>
-        </div>
-
-        <br>
-
-        <div class="col text-center">
-            <a href="/get-edit-giving-history/<%=data.ITEM_NO%>" title="Edit">Edit</a>&nbsp;&nbsp;
-            <a href="/delete-giving-history/<%=data.ITEM_NO%>" title="Delete" onclick="return confirm('Are you sure you want to delete this pickup request?')">Delete</a> 
-        </div>
     </div>
     <%  i++; }) %>
     <% } else{ %>
@@ -145,6 +129,7 @@
 </div>
   <%- include("#userprofilefooter.ejs"); %>
 </div>
+
 
 <!-- Script for Accordion starts-->
 <script>
@@ -163,6 +148,7 @@
     }
 </script>
 <!-- Script for Accordion ends-->
+
 
 </body>
 </html>

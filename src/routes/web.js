@@ -63,6 +63,7 @@ let initWebRoutes = (app) => {
     router.get('/delete-giving-history/:id', profileController.deleteGivingHistory);
 
     router.get('/take/:id', profileController.getFindSomething);
+    router.post('/show-list-of-givers/:id', profileController.showListOfGivers);
 
 /*My Profile - Ends*/
     
