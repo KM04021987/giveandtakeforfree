@@ -70,14 +70,11 @@ else {
     <div class="col-10 mx-auto">
     <form method="POST" action="/show-list-of-givers/<%=account%>">
         <br>
-        <br>
-        <br>
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label style="font-size: 14px;">Category</label>
                 <select id="categorySelect" class="form-control" name="category" onchange="categorySubmenu(this.value)" required>
-                    <option selected></option>
-                    <option>Any</option>
+                    <option selected>Any</option>
                     <option>Electronics</option>
                     <option>Babies Stuffs</option>
                     <option>Furnitures</option>
@@ -93,51 +90,61 @@ else {
             <div class="form-group col-md-6">
                 <label style="font-size: 14px;">Sub-category</label>
                 <select id="subcategorySelect" class="form-control" name="subcategory" required>
-                    <option selected></option>
+                    <option selected>Any</option>
                 </select>
             </div>
         </div>
-        
-        <br>
-        <div class="row justify-content-center">
-            <p>&nbsp;&nbsp;&nbsp;Please enter country, state and Pin or Zip to search giver nearby.</p>
+    
+        <p style="font-size: 14px;"><strong>Do you want to search in different location?</strong></p>
+
+        <div class="form-group">
+            <label style="font-weight: normal;">
+                <input type="radio" id="radio_button_no" value="no" name="radiobutton" onclick="javascript:myFunction();" checked/>
+                No &nbsp;
+                <input type="radio" id="radio_button_yes" value="yes" name="radiobutton" onclick="javascript:myFunction();"/>
+                Yes
+            </label>
         </div>
 
-        <div class="row justify-content-center">
-            <div class="form-group col-md-1">
-                <label style="font-size: 14px;">Country:</label>
-            </div>
-            <div class="form-group col-md-4">
-                <select id="countrySelect" style="font-size: 14px;" class="form-control" name="country" onchange="makeSubmenu(this.value)" required>
-                    <option selected><%=country%></option>
-                    <option>India</option>
-                    <option>United States</option>
-                </select>
+        <div id="div_inner" style="display: none;">
+            <div class="form-group">
+                <div class="row justify-content-center">
+                    <p style="font-size: 14px;">&nbsp;&nbsp;&nbsp;Please enter country, state and pin/zip where you want to search</p>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="form-group col-md-1">
+                        <label style="font-size: 14px;">Country:</label>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <select id="countrySelect" style="font-size: 14px;" class="form-control" name="country" onchange="makeSubmenu(this.value)" required>
+                            <option selected><%=country%></option>
+                            <option>India</option>
+                            <option>United States</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="form-group col-md-1">
+                        <label style="font-size: 14px;">State:</label>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <select id="stateSelect" style="font-size: 14px;" class="form-control" name="state" required>
+                            <option selected><%=state%></option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="form-group col-md-1">
+                        <label style="font-size: 14px;">PIN/ZIP:</label>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <input type="text" style="font-size: 14px;" class="form-control" id="pin" name="pin" maxlength="10" value="<%=pin%>" required>
+                    </div>
+                </div>        
             </div>
         </div>
-
-        <div class="row justify-content-center">
-            <div class="form-group col-md-1">
-                <label style="font-size: 14px;">State:</label>
-            </div>
-            <div class="form-group col-md-4">
-                <select id="stateSelect" style="font-size: 14px;" class="form-control" name="state" required>
-                    <option selected><%=state%></option>
-                </select>
-            </div>
-        </div>
-
-        <div class="row justify-content-center">
-            <div class="form-group col-md-1">
-                <label style="font-size: 14px;">PIN/ZIP:</label>
-            </div>
-            <div class="form-group col-md-4">
-                <input type="text" style="font-size: 14px;" class="form-control" id="pin" name="pin" maxlength="10" value="<%=pin%>" required>
-            </div>
-        </div>
-        <br>
         <div class="text-center">
-            <button type="submit" class="btn btn-outline-primary btn-sm">Search</button>  
+            <button type="submit" class="btn btn-primary btn-sm">Search</button>  
         </div>
     </form>
     </div>
@@ -145,5 +152,17 @@ else {
     <br>
     <%- include("#userprofilefooter.ejs"); %>
 </div>
+
+<script>
+    function myFunction() {
+    var yes = document.getElementById("radio_button_yes");
+    var div_inner = document.getElementById("div_inner");
+    if (yes.checked === true) {
+        div_inner.style.display = "block";
+    } else {
+        div_inner.style.display = "none";
+    }
+    }
+</script>
 </body>
 </html>

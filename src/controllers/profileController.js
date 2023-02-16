@@ -425,7 +425,12 @@ let showListOfGivers = async (req, res) => {
     await profileService.getGiversList(findByInfo).then((data) => {
     return res.render("userlistofgivers.ejs", {
         userData: data,
-        account: account
+        account: account,
+        category: req.body.category,
+        subcategory: req.body.subcategory,
+        country: req.body.country,
+        state: req.body.state,
+        pin: req.body.pin
     })
     }).catch(error => {
     console.log('error while finding givers info')
