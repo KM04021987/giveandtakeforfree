@@ -211,7 +211,8 @@ let postGiveSomething = async (req, res) => {
         city: req.body.city,
         pin: req.body.pin,
         address: req.body.address,
-        phone: req.body.phone
+        phone: req.body.phone,
+        giver_phone_no_display: req.body.giver_phone_no_display
     };
     
     if (radiobutton === 'yes') {
@@ -438,6 +439,25 @@ let showListOfGivers = async (req, res) => {
 };
 
 
+let requestContactNumber = async (req, res) => {
+    console.log('profileController: requestContactNumber')
+    let sendrequest = {
+        giveraccount: req.body.account,
+        itemno: req.body.itemno
+    }  
+    try {
+        await profileService.requestContactNumber(sendrequest);
+        return res.json({
+            'message': 'Success!. Request is posted successfully.'
+        })
+    } catch (err) {
+        return res.json({
+            "message": err
+        });
+    }
+};
+
+
 module.exports = {
     handlePage: handlePage,
     getEditProfile: getEditProfile,
@@ -453,5 +473,6 @@ module.exports = {
     putEditGivingHistory: putEditGivingHistory,
     deleteGivingHistory: deleteGivingHistory,
     getFindSomething: getFindSomething,
-    showListOfGivers: showListOfGivers
+    showListOfGivers: showListOfGivers,
+    requestContactNumber: requestContactNumber
 }

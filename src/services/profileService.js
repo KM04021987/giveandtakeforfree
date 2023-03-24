@@ -32,14 +32,14 @@ let createPickupRequestWithFile = (data, cloudinary_public_id, cloudinary_secure
             ibmdb.open(connStr, function (err, conn) {
                 if (err) throw err;
                 if(pcountry === data.country && pstate === data.state && ppin === data.pin)  {
-                conn.query("INSERT INTO "+process.env.DB_SCHEMA+".ITEM_INFO(GIVER_ACCOUNT, ITEM_CATEGORY, ITEM_SUBCATEGORY, ITEM_NAME, GIVER_COUNTRY, GIVER_STATE, GIVER_CITY, GIVER_PIN_OR_ZIP, GIVER_ADDRESS, GIVER_PHONE_NO, IMAGE_CLOUDINARY_PUBLIC_ID, IMAGE_CLOUDINARY_SECURE_URL, GIVER_LATITUDE, GIVER_LONGITUDE) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", [data.account, data.category, data.subcategory, data.itemname, data.country, data.state, data.city, data.pin, data.address, data.phone, cloudinary_public_id, cloudinary_secure_url, platitude, plongitude], function(err, rows) {
+                conn.query("INSERT INTO "+process.env.DB_SCHEMA+".ITEM_INFO(GIVER_ACCOUNT, ITEM_CATEGORY, ITEM_SUBCATEGORY, ITEM_NAME, GIVER_COUNTRY, GIVER_STATE, GIVER_CITY, GIVER_PIN_OR_ZIP, GIVER_ADDRESS, GIVER_PHONE_NO_DISPLAY, GIVER_PHONE_NO, IMAGE_CLOUDINARY_PUBLIC_ID, IMAGE_CLOUDINARY_SECURE_URL, GIVER_LATITUDE, GIVER_LONGITUDE) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", [data.account, data.category, data.subcategory, data.itemname, data.country, data.state, data.city, data.pin, data.address, data.giver_phone_no_display, data.phone, cloudinary_public_id, cloudinary_secure_url, platitude, plongitude], function(err, rows) {
                     if (err) {
                         reject(false)
                     }
                     resolve("Successfully Created a new pickup request(With File)");
                 })
                 } else {
-                conn.query("INSERT INTO "+process.env.DB_SCHEMA+".ITEM_INFO(GIVER_ACCOUNT, ITEM_CATEGORY, ITEM_SUBCATEGORY, ITEM_NAME, GIVER_COUNTRY, GIVER_STATE, GIVER_CITY, GIVER_PIN_OR_ZIP, GIVER_ADDRESS, GIVER_PHONE_NO, IMAGE_CLOUDINARY_PUBLIC_ID, IMAGE_CLOUDINARY_SECURE_URL) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", [data.account, data.category, data.subcategory, data.itemname, data.country, data.state, data.city, data.pin, data.address, data.phone, cloudinary_public_id, cloudinary_secure_url], function(err, rows) {
+                conn.query("INSERT INTO "+process.env.DB_SCHEMA+".ITEM_INFO(GIVER_ACCOUNT, ITEM_CATEGORY, ITEM_SUBCATEGORY, ITEM_NAME, GIVER_COUNTRY, GIVER_STATE, GIVER_CITY, GIVER_PHONE_NO_DISPLAY, GIVER_PIN_OR_ZIP, GIVER_ADDRESS, GIVER_PHONE_NO, IMAGE_CLOUDINARY_PUBLIC_ID, IMAGE_CLOUDINARY_SECURE_URL) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", [data.account, data.category, data.subcategory, data.itemname, data.country, data.state, data.city, data.pin, data.address, data.giver_phone_no_display, data.phone, cloudinary_public_id, cloudinary_secure_url], function(err, rows) {
                     if (err) {
                         reject(false)
                     }
@@ -83,14 +83,14 @@ let createPickupRequestWithoutFile = (data) => {
             ibmdb.open(connStr, function (err, conn) {
                 if (err) throw err;
                 if(pcountry === data.country && pstate === data.state && ppin === data.pin)  {
-                conn.query("INSERT INTO "+process.env.DB_SCHEMA+".ITEM_INFO(GIVER_ACCOUNT, ITEM_CATEGORY, ITEM_SUBCATEGORY, ITEM_NAME, GIVER_COUNTRY, GIVER_STATE, GIVER_CITY, GIVER_PIN_OR_ZIP, GIVER_ADDRESS, GIVER_PHONE_NO, GIVER_LATITUDE, GIVER_LONGITUDE) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", [data.account, data.category, data.subcategory, data.itemname, data.country, data.state, data.city, data.pin, data.address, data.phone, platitude, plongitude], function(err, rows) {
+                conn.query("INSERT INTO "+process.env.DB_SCHEMA+".ITEM_INFO(GIVER_ACCOUNT, ITEM_CATEGORY, ITEM_SUBCATEGORY, ITEM_NAME, GIVER_COUNTRY, GIVER_STATE, GIVER_CITY, GIVER_PIN_OR_ZIP, GIVER_ADDRESS, GIVER_PHONE_NO_DISPLAY, GIVER_PHONE_NO, GIVER_LATITUDE, GIVER_LONGITUDE) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", [data.account, data.category, data.subcategory, data.itemname, data.country, data.state, data.city, data.pin, data.address, data.giver_phone_no_display, data.phone, platitude, plongitude], function(err, rows) {
                     if (err) {
                         reject(false)
                     }
                     resolve("Successfully Created a new pickup request(Without File)");
                 })
                 } else {
-                conn.query("INSERT INTO "+process.env.DB_SCHEMA+".ITEM_INFO(GIVER_ACCOUNT, ITEM_CATEGORY, ITEM_SUBCATEGORY, ITEM_NAME, GIVER_COUNTRY, GIVER_STATE, GIVER_CITY, GIVER_PIN_OR_ZIP, GIVER_ADDRESS, GIVER_PHONE_NO) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", [data.account, data.category, data.subcategory, data.itemname, data.country, data.state, data.city, data.pin, data.address, data.phone], function(err, rows) {
+                conn.query("INSERT INTO "+process.env.DB_SCHEMA+".ITEM_INFO(GIVER_ACCOUNT, ITEM_CATEGORY, ITEM_SUBCATEGORY, ITEM_NAME, GIVER_COUNTRY, GIVER_STATE, GIVER_CITY, GIVER_PIN_OR_ZIP, GIVER_ADDRESS, GIVER_PHONE_NO_DISPLAY, GIVER_PHONE_NO) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);", [data.account, data.category, data.subcategory, data.itemname, data.country, data.state, data.city, data.pin, data.address, data.giver_phone_no_display, data.phone], function(err, rows) {
                     if (err) {
                         reject(false)
                     }
@@ -291,7 +291,7 @@ let getGiversList = (findByInfo) => {
                 let count = process.env.FETCH_ROW_COUNT;
                 if(findByInfo.category == 'Any') {
                     if(flatitude != null && flongitude != null)  { 
-                    conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info WHERE (giver_latitude >= ? and giver_latitude <= ?) and (giver_longitude >= ? and giver_longitude <= ?) and GIVER_ACCOUNT <> ?  fetch first ? rows only with ur;", [minlat, maxlat, minlon, maxlon, findByInfo.account, count], function(err, rows) {
+                    conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info WHERE (giver_latitude >= ? and giver_latitude <= ?) and (giver_longitude >= ? and giver_longitude <= ?) and GIVER_ACCOUNT <> ?  ORDER BY LAST_UPDATED_TS DESC fetch first ? rows only with ur;", [minlat, maxlat, minlon, maxlon, findByInfo.account, count], function(err, rows) {
                         if (err) {
                             console.log(err)
                             reject(err)
@@ -300,7 +300,7 @@ let getGiversList = (findByInfo) => {
                         resolve(data);
                     })
                     } else {
-                    conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info WHERE Country = ? and state = ? and PIN_OR_ZIP = ?  and GIVER_ACCOUNT <> ? fetch first ? rows only with ur;", [findByInfo.country, findByInfo.state, findByInfo.pin, findByInfo.account, count], function(err, rows) {
+                    conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info WHERE Country = ? and state = ? and PIN_OR_ZIP = ?  and GIVER_ACCOUNT <> ? ORDER BY LAST_UPDATED_TS DESC fetch first ? rows only with ur;", [findByInfo.country, findByInfo.state, findByInfo.pin, findByInfo.account, count], function(err, rows) {
                         if (err) {
                             console.log(err)
                             reject(err)
@@ -311,7 +311,7 @@ let getGiversList = (findByInfo) => {
                     }
                 } else {
                     if(flatitude != null && flongitude != null)  { 
-                        conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info WHERE (giver_latitude >= ? and giver_latitude <= ?) and (giver_longitude >= ? and giver_longitude <= ?)  and item_category = ? and item_subcategory = ? and GIVER_ACCOUNT <> ? fetch first ? rows only with ur;", [minlat, maxlat, minlon, maxlon, findByInfo.category, findByInfo.subcategory, findByInfo.account, count], function(err, rows) {
+                        conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info WHERE (giver_latitude >= ? and giver_latitude <= ?) and (giver_longitude >= ? and giver_longitude <= ?)  and item_category = ? and item_subcategory = ? and GIVER_ACCOUNT <> ? ORDER BY LAST_UPDATED_TS DESC fetch first ? rows only with ur;", [minlat, maxlat, minlon, maxlon, findByInfo.category, findByInfo.subcategory, findByInfo.account, count], function(err, rows) {
                             if (err) {
                                 console.log(err)
                                 reject(err)
@@ -320,7 +320,7 @@ let getGiversList = (findByInfo) => {
                             resolve(data);
                         })
                         } else {
-                        conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info WHERE Country = ? and state = ? and PIN_OR_ZIP = ?  and item_category = ? and item_subcategory = ? and GIVER_ACCOUNT <> ? fetch first ? rows only with ur;", [findByInfo.country, findByInfo.state, findByInfo.pin, findByInfo.category, findByInfo.subcategory, findByInfo.account, count], function(err, rows) {
+                        conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info WHERE Country = ? and state = ? and PIN_OR_ZIP = ?  and item_category = ? and item_subcategory = ? and GIVER_ACCOUNT <> ? ORDER BY LAST_UPDATED_TS DESC fetch first ? rows only with ur;", [findByInfo.country, findByInfo.state, findByInfo.pin, findByInfo.category, findByInfo.subcategory, findByInfo.account, count], function(err, rows) {
                             if (err) {
                                 console.log(err)
                                 reject(err)
@@ -341,6 +341,37 @@ let getGiversList = (findByInfo) => {
     });
 };
 
+let requestContactNumber = (sendrequest) => {
+    console.log('profileService: requestContactNumber')
+    return new Promise(async (resolve, reject) => {
+        ibmdb.open(connStr, function (err, conn) {
+            if (err) throw err;
+            conn.query("UPDATE "+process.env.DB_SCHEMA+".ITEM_INFO SET TAKER_ACCOUNT1 = case when COALESCE(TAKER_ACCOUNT1,999999) <> ? then COALESCE(TAKER_ACCOUNT1,?) end, TAKER_ACCOUNT1_ACCESS_TO_PHONE_NO = case when TAKER_ACCOUNT1_ACCESS_TO_PHONE_NO = 'N' then 'Y' else 'N' end WHERE ITEM_NO = ? and COALESCE(TAKER_ACCOUNT2,999999) <>  ? and COALESCE(TAKER_ACCOUNT3,999999) <>  ? and ((TAKER_ACCOUNT1 = ? AND TAKER_ACCOUNT1_ACCESS_TO_PHONE_NO = 'Y') OR TAKER_ACCOUNT1 is null);",[sendrequest.giveraccount, sendrequest.giveraccount, sendrequest.itemno, sendrequest.giveraccount, sendrequest.giveraccount, sendrequest.giveraccount],  function(err, rows) {
+                if (err) {
+                    ibmdb.open(connStr, function (err, conn) {
+                        if (err) throw err;
+                        conn.query("UPDATE "+process.env.DB_SCHEMA+".ITEM_INFO SET TAKER_ACCOUNT2 = case when COALESCE(TAKER_ACCOUNT2,999999) <> ? then COALESCE(TAKER_ACCOUNT2,?) end, TAKER_ACCOUNT2_ACCESS_TO_PHONE_NO = case when TAKER_ACCOUNT2_ACCESS_TO_PHONE_NO = 'N' then 'Y' else 'N' end WHERE ITEM_NO = ? and COALESCE(TAKER_ACCOUNT1,999999) <>  ? and COALESCE(TAKER_ACCOUNT3,999999) <>  ? and ((TAKER_ACCOUNT2 = ? AND TAKER_ACCOUNT2_ACCESS_TO_PHONE_NO = 'Y') OR TAKER_ACCOUNT2 is null);",[sendrequest.giveraccount, sendrequest.giveraccount, sendrequest.itemno, sendrequest.giveraccount, sendrequest.giveraccount, sendrequest.giveraccount],  function(err, rows) {
+                            if (err) {
+                                ibmdb.open(connStr, function (err, conn) {
+                                    if (err) throw err;
+                                    conn.query("UPDATE "+process.env.DB_SCHEMA+".ITEM_INFO SET TAKER_ACCOUNT3 = case when COALESCE(TAKER_ACCOUNT3,999999) <> ? then COALESCE(TAKER_ACCOUNT3,?) end, TAKER_ACCOUNT3_ACCESS_TO_PHONE_NO = case when TAKER_ACCOUNT3_ACCESS_TO_PHONE_NO = 'N' then 'Y' else 'N' end WHERE ITEM_NO = ? and COALESCE(TAKER_ACCOUNT1,999999) <>  ? and COALESCE(TAKER_ACCOUNT2,999999) <>  ? and ((TAKER_ACCOUNT3 = ? AND TAKER_ACCOUNT3_ACCESS_TO_PHONE_NO = 'Y') OR TAKER_ACCOUNT3 is null);",[sendrequest.giveraccount, sendrequest.giveraccount, sendrequest.itemno, sendrequest.giveraccount, sendrequest.giveraccount, sendrequest.giveraccount],  function(err, rows) {
+                                        if (err) {
+                                            reject(err)
+                                        } else
+                                        console.log("Request for contact number3 is successfully updated");
+                                    })
+                                });
+                            } else
+                            console.log("Request for contact number2 is successfully updated");
+                        })
+                    });
+                } else
+                console.log("Request for contact number1 is successfully updated");
+            })
+        });
+    });
+}
+
 
 module.exports = {
     createPickupRequestWithFile: createPickupRequestWithFile,
@@ -352,5 +383,6 @@ module.exports = {
     updatePickupInfoWithFile: updatePickupInfoWithFile,
     updatePickupInfoWithoutFile: updatePickupInfoWithoutFile,
     deletePickupById: deletePickupById,
-    getGiversList: getGiversList
+    getGiversList: getGiversList,
+    requestContactNumber: requestContactNumber
 };

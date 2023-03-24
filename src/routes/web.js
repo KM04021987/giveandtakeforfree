@@ -64,6 +64,7 @@ let initWebRoutes = (app) => {
 
     router.get('/take/:id', profileController.getFindSomething);
     router.post('/show-list-of-givers/:id', profileController.showListOfGivers);
+    router.post('/show-list-of-givers/requestContactNumber/:id', profileController.requestContactNumber)
 
 /*My Profile - Ends*/
     
