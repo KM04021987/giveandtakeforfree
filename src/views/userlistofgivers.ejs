@@ -266,9 +266,15 @@
             <div class="form-group">
                 <input type="hidden" class="form-control" id="account" name="account" value="<%=account%>">
             </div>
-            <div class="form-group">
-                <button type="submit" id="btn" value="<%=data.ITEM_NO%>" class="btn btn-primary btn-sm" onclick="changeButton(this)">REQUEST to allow to view the contact number</button>
-            </div>
+            <% if ((data.TAKER_ACCOUNT1 == account && data.TAKER_ACCOUNT1_ACCESS_TO_PHONE_NO == 'Y') || (data.TAKER_ACCOUNT2 == account && data.TAKER_ACCOUNT2_ACCESS_TO_PHONE_NO == 'Y') || (data.TAKER_ACCOUNT3 == account && data.TAKER_ACCOUNT3_ACCESS_TO_PHONE_NO == 'Y')) { %>
+                <div class="form-group">
+                    <button type="submit" id="btn" value="<%=data.ITEM_NO%>" class="btn btn-primary btn-sm" onclick="changeButton(this)">CANCEL the request to show the contact number</button>
+                </div>
+            <% } else {%>
+                <div class="form-group">
+                    <button type="submit" id="btn" value="<%=data.ITEM_NO%>" class="btn btn-primary btn-sm" onclick="changeButton(this)">REQUEST to allow to view the contact number</button>
+                </div>
+            <% } %>
         </form>
         </div>
     </div>

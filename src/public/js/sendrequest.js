@@ -18,17 +18,17 @@ $(document).ready(function(){
             success: function(data){
                 console.log(data)
                 if (data.message.substring(0,7) === "Success") {
-                    //alert(data.message);
+                    alert(data.message);
                     return;
                 }
                 else {
                     alert(data.message);
-                    window.location.href = `${window.location.origin}/show-list-of-givers/requestContactNumber/id`;       
+                    window.location.href = `${window.location.origin}`;       
                 }
             },
             error: function(err){
                 alert("Error while requesting the contact number. Please try again.");
-                window.location.href = `${window.location.origin}/show-list-of-givers/requestContactNumber/id`;
+                window.location.href = `${window.location.origin}`;
             }
         })
     });

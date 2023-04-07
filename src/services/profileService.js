@@ -291,7 +291,7 @@ let getGiversList = (findByInfo) => {
                 let count = process.env.FETCH_ROW_COUNT;
                 if(findByInfo.category == 'Any') {
                     if(flatitude != null && flongitude != null)  { 
-                    conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info WHERE (giver_latitude >= ? and giver_latitude <= ?) and (giver_longitude >= ? and giver_longitude <= ?) and GIVER_ACCOUNT <> ?  ORDER BY LAST_UPDATED_TS DESC fetch first ? rows only with ur;", [minlat, maxlat, minlon, maxlon, findByInfo.account, count], function(err, rows) {
+                    conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info WHERE (giver_latitude >= ? and giver_latitude <= ?) and (giver_longitude >= ? and giver_longitude <= ?) and GIVER_ACCOUNT <> ? and (TAKER_ACCOUNT1 = ? or TAKER_ACCOUNT2 = ? or TAKER_ACCOUNT3 = ? or TAKER_ACCOUNT1_ACCESS_TO_PHONE_NO = 'N' or TAKER_ACCOUNT2_ACCESS_TO_PHONE_NO = 'N' or TAKER_ACCOUNT3_ACCESS_TO_PHONE_NO = 'N') ORDER BY LAST_UPDATED_TS DESC fetch first ? rows only with ur;", [minlat, maxlat, minlon, maxlon, findByInfo.account, findByInfo.account, findByInfo.account, findByInfo.account, count], function(err, rows) {
                         if (err) {
                             console.log(err)
                             reject(err)
@@ -300,7 +300,7 @@ let getGiversList = (findByInfo) => {
                         resolve(data);
                     })
                     } else {
-                    conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info WHERE Country = ? and state = ? and PIN_OR_ZIP = ?  and GIVER_ACCOUNT <> ? ORDER BY LAST_UPDATED_TS DESC fetch first ? rows only with ur;", [findByInfo.country, findByInfo.state, findByInfo.pin, findByInfo.account, count], function(err, rows) {
+                    conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info WHERE Country = ? and state = ? and PIN_OR_ZIP = ?  and GIVER_ACCOUNT <> ? and (TAKER_ACCOUNT1 = ? or TAKER_ACCOUNT2 = ? or TAKER_ACCOUNT3 = ? or TAKER_ACCOUNT1_ACCESS_TO_PHONE_NO = 'N' or TAKER_ACCOUNT2_ACCESS_TO_PHONE_NO = 'N' or TAKER_ACCOUNT3_ACCESS_TO_PHONE_NO = 'N') ORDER BY LAST_UPDATED_TS DESC fetch first ? rows only with ur;", [findByInfo.country, findByInfo.state, findByInfo.pin, findByInfo.account, findByInfo.account, findByInfo.account, findByInfo.account, count], function(err, rows) {
                         if (err) {
                             console.log(err)
                             reject(err)
@@ -311,7 +311,7 @@ let getGiversList = (findByInfo) => {
                     }
                 } else {
                     if(flatitude != null && flongitude != null)  { 
-                        conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info WHERE (giver_latitude >= ? and giver_latitude <= ?) and (giver_longitude >= ? and giver_longitude <= ?)  and item_category = ? and item_subcategory = ? and GIVER_ACCOUNT <> ? ORDER BY LAST_UPDATED_TS DESC fetch first ? rows only with ur;", [minlat, maxlat, minlon, maxlon, findByInfo.category, findByInfo.subcategory, findByInfo.account, count], function(err, rows) {
+                        conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info WHERE (giver_latitude >= ? and giver_latitude <= ?) and (giver_longitude >= ? and giver_longitude <= ?)  and item_category = ? and item_subcategory = ? and GIVER_ACCOUNT <> ? and (TAKER_ACCOUNT1 = ? or TAKER_ACCOUNT2 = ? or TAKER_ACCOUNT3 = ? or TAKER_ACCOUNT1_ACCESS_TO_PHONE_NO = 'N' or TAKER_ACCOUNT2_ACCESS_TO_PHONE_NO = 'N' or TAKER_ACCOUNT3_ACCESS_TO_PHONE_NO = 'N') ORDER BY LAST_UPDATED_TS DESC fetch first ? rows only with ur;", [minlat, maxlat, minlon, maxlon, findByInfo.category, findByInfo.subcategory, findByInfo.account, findByInfo.account, findByInfo.account, findByInfo.account, count], function(err, rows) {
                             if (err) {
                                 console.log(err)
                                 reject(err)
@@ -320,7 +320,7 @@ let getGiversList = (findByInfo) => {
                             resolve(data);
                         })
                         } else {
-                        conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info WHERE Country = ? and state = ? and PIN_OR_ZIP = ?  and item_category = ? and item_subcategory = ? and GIVER_ACCOUNT <> ? ORDER BY LAST_UPDATED_TS DESC fetch first ? rows only with ur;", [findByInfo.country, findByInfo.state, findByInfo.pin, findByInfo.category, findByInfo.subcategory, findByInfo.account, count], function(err, rows) {
+                        conn.query("SELECT * FROM "+process.env.DB_SCHEMA+".item_info WHERE Country = ? and state = ? and PIN_OR_ZIP = ?  and item_category = ? and item_subcategory = ? and GIVER_ACCOUNT <> ? and (TAKER_ACCOUNT1 = ? or TAKER_ACCOUNT2 = ? or TAKER_ACCOUNT3 = ? or TAKER_ACCOUNT1_ACCESS_TO_PHONE_NO = 'N' or TAKER_ACCOUNT2_ACCESS_TO_PHONE_NO = 'N' or TAKER_ACCOUNT3_ACCESS_TO_PHONE_NO = 'N') ORDER BY LAST_UPDATED_TS DESC fetch first ? rows only with ur;", [findByInfo.country, findByInfo.state, findByInfo.pin, findByInfo.category, findByInfo.subcategory, findByInfo.account, findByInfo.account, findByInfo.account, findByInfo.account, count], function(err, rows) {
                             if (err) {
                                 console.log(err)
                                 reject(err)
@@ -348,25 +348,27 @@ let requestContactNumber = (sendrequest) => {
             if (err) throw err;
             conn.query("UPDATE "+process.env.DB_SCHEMA+".ITEM_INFO SET TAKER_ACCOUNT1 = case when COALESCE(TAKER_ACCOUNT1,999999) <> ? then COALESCE(TAKER_ACCOUNT1,?) end, TAKER_ACCOUNT1_ACCESS_TO_PHONE_NO = case when TAKER_ACCOUNT1_ACCESS_TO_PHONE_NO = 'N' then 'Y' else 'N' end WHERE ITEM_NO = ? and COALESCE(TAKER_ACCOUNT2,999999) <>  ? and COALESCE(TAKER_ACCOUNT3,999999) <>  ? and ((TAKER_ACCOUNT1 = ? AND TAKER_ACCOUNT1_ACCESS_TO_PHONE_NO = 'Y') OR TAKER_ACCOUNT1 is null);",[sendrequest.giveraccount, sendrequest.giveraccount, sendrequest.itemno, sendrequest.giveraccount, sendrequest.giveraccount, sendrequest.giveraccount],  function(err, rows) {
                 if (err) {
+                    reject(err)
+                } else {
                     ibmdb.open(connStr, function (err, conn) {
                         if (err) throw err;
                         conn.query("UPDATE "+process.env.DB_SCHEMA+".ITEM_INFO SET TAKER_ACCOUNT2 = case when COALESCE(TAKER_ACCOUNT2,999999) <> ? then COALESCE(TAKER_ACCOUNT2,?) end, TAKER_ACCOUNT2_ACCESS_TO_PHONE_NO = case when TAKER_ACCOUNT2_ACCESS_TO_PHONE_NO = 'N' then 'Y' else 'N' end WHERE ITEM_NO = ? and COALESCE(TAKER_ACCOUNT1,999999) <>  ? and COALESCE(TAKER_ACCOUNT3,999999) <>  ? and ((TAKER_ACCOUNT2 = ? AND TAKER_ACCOUNT2_ACCESS_TO_PHONE_NO = 'Y') OR TAKER_ACCOUNT2 is null);",[sendrequest.giveraccount, sendrequest.giveraccount, sendrequest.itemno, sendrequest.giveraccount, sendrequest.giveraccount, sendrequest.giveraccount],  function(err, rows) {
                             if (err) {
+                                reject(err)
+                            } else {
                                 ibmdb.open(connStr, function (err, conn) {
                                     if (err) throw err;
                                     conn.query("UPDATE "+process.env.DB_SCHEMA+".ITEM_INFO SET TAKER_ACCOUNT3 = case when COALESCE(TAKER_ACCOUNT3,999999) <> ? then COALESCE(TAKER_ACCOUNT3,?) end, TAKER_ACCOUNT3_ACCESS_TO_PHONE_NO = case when TAKER_ACCOUNT3_ACCESS_TO_PHONE_NO = 'N' then 'Y' else 'N' end WHERE ITEM_NO = ? and COALESCE(TAKER_ACCOUNT1,999999) <>  ? and COALESCE(TAKER_ACCOUNT2,999999) <>  ? and ((TAKER_ACCOUNT3 = ? AND TAKER_ACCOUNT3_ACCESS_TO_PHONE_NO = 'Y') OR TAKER_ACCOUNT3 is null);",[sendrequest.giveraccount, sendrequest.giveraccount, sendrequest.itemno, sendrequest.giveraccount, sendrequest.giveraccount, sendrequest.giveraccount],  function(err, rows) {
                                         if (err) {
                                             reject(err)
                                         } else
-                                        console.log("Request for contact number3 is successfully updated");
+                                        resolve("Request for contact number is successfully updated");
                                     })
                                 });
-                            } else
-                            console.log("Request for contact number2 is successfully updated");
+                            } 
                         })
                     });
-                } else
-                console.log("Request for contact number1 is successfully updated");
+                } 
             })
         });
     });

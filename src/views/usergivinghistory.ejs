@@ -68,15 +68,15 @@
         userData.forEach(function(data){
     %>
     <% if (data.ITEM_STATUS == 'A') { %>
-    <button class="accordion">&nbsp;&nbsp;&nbsp;Item #<%=data.ITEM_NO%> [Status: Available]</button>
+    <button class="accordion">&nbsp;&nbsp;&nbsp;<%=data.ITEM_NAME%>&nbsp;(<%=data.ITEM_CATEGORY%>/<%=data.ITEM_SUBCATEGORY%>) <strong>[Available]</strong></button>
     <% } %>
 
     <% if (data.ITEM_STATUS == 'D') { %>
-      <button class="accordion">&nbsp;&nbsp;&nbsp;Item #<%=data.ITEM_NO%> [Status: Donated]</button>
+      <button class="accordion">&nbsp;&nbsp;&nbsp;<%=data.ITEM_NAME%>&nbsp;(<%=data.ITEM_CATEGORY%>/<%=data.ITEM_SUBCATEGORY%>) <strong>[Donated]</strong></button>
     <% } %>
 
     <% if (data.ITEM_STATUS == 'P') { %>
-      <button class="accordion">&nbsp;&nbsp;&nbsp;Item #<%=data.ITEM_NO%> [Status: Pending Pickup]</button>
+      <button class="accordion">&nbsp;&nbsp;&nbsp;<%=data.ITEM_NAME%>&nbsp;(<%=data.ITEM_CATEGORY%>/<%=data.ITEM_SUBCATEGORY%>) <strong>[Pending Pickup]</strong></button>
     <% } %>
 
     <div class="panel">
@@ -87,20 +87,31 @@
               <%=data.ITEM_NAME%>&nbsp;&nbsp;(<%=data.ITEM_CATEGORY%>/<%=data.ITEM_SUBCATEGORY%>)
           </div>
         </div>
+        <br>
+        <div class="row">
+          <div class="col-sm-3"><h6 style="font-size: 14px;">Item Number</h6></div>
+          <div class="col-sm-9" style="font-size: 14px;">
+              <%=data.ITEM_NO%>
+          </div>
+        </div>
+        <br>
         <div class="row">
             <div class="col-sm-3"><h6 style="font-size: 14px;">Item Posted on (Date & Time)</h6></div>
             <div class="col-sm-9" style="font-size: 14px;">
                 <%=data.ADD_TS.substring(0,10)%> & <%=data.ADD_TS.substring(11,19)%>
             </div>
         </div>
+        <br>
         <div class="row">
             <div class="col-sm-3"><h6 style="font-size: 14px;">Pickup Location</h6></div>
             <div class="col-sm-9" style="font-size: 14px;"><%=data.GIVER_ADDRESS%><br><%=data.GIVER_CITY%>, <%=data.GIVER_STATE%><br><%=data.GIVER_COUNTRY%> <%=data.GIVER_PIN_OR_ZIP%></div>
         </div>
+        <br>
         <div class="row">
             <div class="col-sm-3"><h6 style="font-size: 14px;">Contact Number</h6></div>
             <div class="col-sm-9" style="font-size: 14px;"><%=data.GIVER_PHONE_NO%></div>
         </div>
+        <br>
         <div class="row">
           <div class="col-sm-3"><h6 style="font-size: 14px;">Photo of the Item</h6></div>
           <% if (data.IMAGE_CLOUDINARY_SECURE_URL > '') { %>
@@ -113,13 +124,20 @@
             </div>
           <% } %>
         </div>
+        <br>
         <div class="row">
           <div class="col-sm-3"><h6 style="font-size: 14px;">Person who is interested </h6></div>
-          <% if (data.TAKER_ACCOUNT3 > '') { %>
+          <% if (data.TAKER_ACCOUNT1 > '' || data.TAKER_ACCOUNT2 > '' || data.TAKER_ACCOUNT3 > '') { %>
             <div class="col-sm-9" style="font-size: 14px;">
-              <%=data.TAKER_ACCOUNT1%>
-              <%=data.TAKER_ACCOUNT2%>
-              <%=data.TAKER_ACCOUNT3%>
+              <% if (data.TAKER_ACCOUNT1 > '') { %>
+                <%=data.TAKER_ACCOUNT1%><br>
+              <% } %>
+              <% if (data.TAKER_ACCOUNT2 > '') { %>
+                <%=data.TAKER_ACCOUNT2%><br>
+              <% } %>
+              <% if (data.TAKER_ACCOUNT3 > '') { %>
+                <%=data.TAKER_ACCOUNT3%><br>
+              <% } %>
             </div>
           <% } else {%>
             <div class="col-sm-9">
