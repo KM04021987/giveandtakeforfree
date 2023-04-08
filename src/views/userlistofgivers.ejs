@@ -207,15 +207,15 @@
         userData.forEach(function(data){
     %>
     <% if (data.ITEM_STATUS == 'A') { %>
-    <button class="accordion">&nbsp;&nbsp;&nbsp;Item #<%=data.ITEM_NO%> [Status: Available]</button>
+    <button class="accordion">&nbsp;&nbsp;&nbsp;<%=data.ITEM_NAME%>&nbsp;(<%=data.ITEM_CATEGORY%>/<%=data.ITEM_SUBCATEGORY%>)</button>
     <% } %>
 
     <% if (data.ITEM_STATUS == 'D') { %>
-      <button class="accordion">&nbsp;&nbsp;&nbsp;Item #<%=data.ITEM_NO%> [Status: Donated]</button>
+      <button class="accordion">&nbsp;&nbsp;&nbsp;<%=data.ITEM_NAME%>&nbsp;(<%=data.ITEM_CATEGORY%>/<%=data.ITEM_SUBCATEGORY%>)</button>
     <% } %>
 
     <% if (data.ITEM_STATUS == 'P') { %>
-      <button class="accordion">&nbsp;&nbsp;&nbsp;Item #<%=data.ITEM_NO%> [Status: Pending Pickup]</button>
+      <button class="accordion">&nbsp;&nbsp;&nbsp;<%=data.ITEM_NAME%>&nbsp;(<%=data.ITEM_CATEGORY%>/<%=data.ITEM_SUBCATEGORY%>)</button>
     <% } %>
 
     <div class="panel">
@@ -225,6 +225,13 @@
           <div class="col-sm-9" style="font-size: 14px;">
               <%=data.ITEM_NAME%>&nbsp;&nbsp;(<%=data.ITEM_CATEGORY%>/<%=data.ITEM_SUBCATEGORY%>)
           </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-3"><h6 style="font-size: 14px;">Item No</h6></div>
+            <div class="col-sm-9" style="font-size: 14px;">
+                <%=data.ITEM_NO%>
+            </div>
         </div>
         <br>
         <div class="row">
@@ -266,14 +273,20 @@
             <div class="form-group">
                 <input type="hidden" class="form-control" id="account" name="account" value="<%=account%>">
             </div>
-            <% if ((data.TAKER_ACCOUNT1 == account && data.TAKER_ACCOUNT1_ACCESS_TO_PHONE_NO == 'Y') || (data.TAKER_ACCOUNT2 == account && data.TAKER_ACCOUNT2_ACCESS_TO_PHONE_NO == 'Y') || (data.TAKER_ACCOUNT3 == account && data.TAKER_ACCOUNT3_ACCESS_TO_PHONE_NO == 'Y')) { %>
-                <div class="form-group">
-                    <button type="submit" id="btn" value="<%=data.ITEM_NO%>" class="btn btn-primary btn-sm" onclick="changeButton(this)">CANCEL the request to show the contact number</button>
-                </div>
+            <% if(data.GIVER_PHONE_NO_DISPLAY == 'N') { %>
+                <% if ((data.TAKER_ACCOUNT1 == account && data.TAKER_ACCOUNT1_ACCESS_TO_PHONE_NO == 'Y') || (data.TAKER_ACCOUNT2 == account && data.TAKER_ACCOUNT2_ACCESS_TO_PHONE_NO == 'Y') || (data.TAKER_ACCOUNT3 == account && data.TAKER_ACCOUNT3_ACCESS_TO_PHONE_NO == 'Y')) { %>
+                    <div class="form-group">
+                        <button type="submit" id="btn" value="<%=data.ITEM_NO%>" class="btn btn-primary btn-sm" onclick="changeButton(this)">CANCEL the request to show the contact number</button>
+                    </div>
+                <% } else {%>
+                    <div class="form-group">
+                        <button type="submit" id="btn" value="<%=data.ITEM_NO%>" class="btn btn-primary btn-sm" onclick="changeButton(this)">REQUEST to allow to view the contact number</button>
+                    </div>
+                <% } %>
             <% } else {%>
                 <div class="form-group">
-                    <button type="submit" id="btn" value="<%=data.ITEM_NO%>" class="btn btn-primary btn-sm" onclick="changeButton(this)">REQUEST to allow to view the contact number</button>
-                </div>
+                    <button type="button" id="btn" class="btn btn-success btn-sm" disabled>Phone number is shown. Please call to proceed</button>
+                </div>    
             <% } %>
         </form>
         </div>
