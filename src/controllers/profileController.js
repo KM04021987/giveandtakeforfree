@@ -457,6 +457,114 @@ let requestContactNumber = async (req, res) => {
     }
 };
 
+let replyTakerAccount1 = async (req, res) => {
+    console.log('profileController: replyTakerAccount1')
+ 
+    let item = req.body.item;
+    let acceptrejectinfo = item.substring(0,1);
+    let itemnoinfo = item.substring(1,7);
+
+    let iteminfo = {
+        acceptrejectinfo: acceptrejectinfo,
+        itemnoinfo: itemnoinfo
+    }
+    if (acceptrejectinfo == 'Y') {
+        try {
+            await profileService.replyTakerAccount1(iteminfo);
+            return res.json({
+                'message': 'Success!. You have successfully accepted the request.'
+            })
+        } catch (err) {
+            return res.json({
+                "message": err
+            });
+        }
+    } else {
+        try {
+            await profileService.replyTakerAccount1(iteminfo);
+            return res.json({
+                'message': 'Success!. You have successfully rejected the request.'
+            })
+        } catch (err) {
+            return res.json({
+                "message": err
+            });
+        }   
+    }
+};
+
+let replyTakerAccount2 = async (req, res) => {
+    console.log('profileController: replyTakerAccount2')
+ 
+    let item = req.body.item;
+    let acceptrejectinfo = item.substring(0,1);
+    let itemnoinfo = item.substring(1,7);
+
+    let iteminfo = {
+        acceptrejectinfo: acceptrejectinfo,
+        itemnoinfo: itemnoinfo
+    }
+    if (acceptrejectinfo == 'Y') {
+        try {
+            await profileService.replyTakerAccount2(iteminfo);
+            return res.json({
+                'message': 'Success!. You have successfully accepted the request.'
+            })
+        } catch (err) {
+            return res.json({
+                "message": err
+            });
+        }
+    } else {
+        try {
+            await profileService.replyTakerAccount2(iteminfo);
+            return res.json({
+                'message': 'Success!. You have successfully rejected the request.'
+            })
+        } catch (err) {
+            return res.json({
+                "message": err
+            });
+        }   
+    }
+};
+
+
+let replyTakerAccount3 = async (req, res) => {
+    console.log('profileController: replyTakerAccount3')
+ 
+    let item = req.body.item;
+    let acceptrejectinfo = item.substring(0,1);
+    let itemnoinfo = item.substring(1,7);
+
+    let iteminfo = {
+        acceptrejectinfo: acceptrejectinfo,
+        itemnoinfo: itemnoinfo
+    }
+    if (acceptrejectinfo == 'Y') {
+        try {
+            await profileService.replyTakerAccount3(iteminfo);
+            return res.json({
+                'message': 'Success!. You have successfully accepted the request.'
+            })
+        } catch (err) {
+            return res.json({
+                "message": err
+            });
+        }
+    } else {
+        try {
+            await profileService.replyTakerAccount3(iteminfo);
+            return res.json({
+                'message': 'Success!. You have successfully rejected the request.'
+            })
+        } catch (err) {
+            return res.json({
+                "message": err
+            });
+        }   
+    }
+};
 
 module.exports = {
     handlePage: handlePage,
@@ -474,5 +582,8 @@ module.exports = {
     deleteGivingHistory: deleteGivingHistory,
     getFindSomething: getFindSomething,
     showListOfGivers: showListOfGivers,
-    requestContactNumber: requestContactNumber
+    requestContactNumber: requestContactNumber,
+    replyTakerAccount1: replyTakerAccount1,
+    replyTakerAccount2: replyTakerAccount2,
+    replyTakerAccount3: replyTakerAccount3
 }

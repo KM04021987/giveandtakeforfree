@@ -61,6 +61,9 @@ let initWebRoutes = (app) => {
     router.get('/get-edit-giving-history/:id', profileController.getEditGivingHistory);
     router.post('/put-edit-giving-history/:id', profileController.uploadImage.single('uploaded_image'), profileController.putEditGivingHistory);
     router.get('/delete-giving-history/:id', profileController.deleteGivingHistory);
+    router.post('/get-giving-history/reply-taker-account1/:id', profileController.replyTakerAccount1);
+    router.post('/get-giving-history/reply-taker-account2/:id', profileController.replyTakerAccount2);
+    router.post('/get-giving-history/reply-taker-account3/:id', profileController.replyTakerAccount3);
 
     router.get('/take/:id', profileController.getFindSomething);
     router.post('/show-list-of-givers/:id', profileController.showListOfGivers);

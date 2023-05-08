@@ -249,7 +249,11 @@
         <div class="row">
             <div class="col-sm-3"><h6 style="font-size: 14px;">Contact Number</h6></div>
             <% if (data.GIVER_PHONE_NO_DISPLAY == 'N') { %>
-                <div class="col-sm-9" style="font-size: 14px;">XXXXXXXXXX</div>
+                <% if (data.TAKER_ACCOUNT1 == account && data.TAKER_ACCOUNT1_RESPONSE_TO_PHONE_NO == 'Y') { %>
+                    <div class="col-sm-9" style="font-size: 14px;"><%=data.GIVER_PHONE_NO%></div>
+                <% } else {%>
+                    <div class="col-sm-9" style="font-size: 14px;">XXXXXXXXXX</div>
+                <% } %>
               <% } else {%>
                 <div class="col-sm-9" style="font-size: 14px;"><%=data.GIVER_PHONE_NO%></div>
             <% } %>
