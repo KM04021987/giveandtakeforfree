@@ -566,6 +566,20 @@ let replyTakerAccount3 = async (req, res) => {
     }
 };
 
+let getTakingHistory = async (req, res) => {
+    console.log('profileController: getTakingHistory')
+    const account = req.params.id
+
+    profileService.extractTakingRequest(account).then((data) => {
+        return res.render("usertakinghistory.ejs",{
+            account: account,
+            userData: data
+        });
+    }).catch(error => {
+        console.log('error in getTakingHistory')
+    });
+};
+
 module.exports = {
     handlePage: handlePage,
     getEditProfile: getEditProfile,
@@ -585,5 +599,6 @@ module.exports = {
     requestContactNumber: requestContactNumber,
     replyTakerAccount1: replyTakerAccount1,
     replyTakerAccount2: replyTakerAccount2,
-    replyTakerAccount3: replyTakerAccount3
+    replyTakerAccount3: replyTakerAccount3,
+    getTakingHistory: getTakingHistory
 }

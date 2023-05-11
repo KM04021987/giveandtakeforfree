@@ -542,6 +542,35 @@ let replyTakerAccount3 = (iteminfo) => {
     });
 }
 
+let extractTakingRequest = (account) => {
+    console.log('profileService: extractTakingRequest')
+    return new Promise((resolve, reject) => {
+        try {
+            ibmdb.open(connStr, function (err, conn) {
+                if (err) throw err;
+                let count = process.env.FETCH_ROW_COUNT;
+                conn.query("select * from "+process.env.DB_SCHEMA+".ITEM_INFO   \
+                            where  TAKER_ACCOUNT1 = ?                           \
+                               or  TAKER_ACCOUNT2 = ?                           \
+                               or  TAKER_ACCOUNT3 = ?                           \
+                            order by LAST_UPDATED_TS DESC                       \
+                            fetch first ? rows only                             \
+                            with ur;", [account, account, account, count], function(err, rows) {
+                    if (err) {
+                        console.log(err)
+                        reject(err)
+                    }
+                    let data = rows;
+                    resolve(data);
+                })
+            });
+        } catch (err) {
+            reject(err);
+        }
+    });
+};
+
+
 module.exports = {
     createPickupRequestWithFile: createPickupRequestWithFile,
     createPickupRequestWithoutFile: createPickupRequestWithoutFile,
@@ -556,5 +585,6 @@ module.exports = {
     requestContactNumber: requestContactNumber,
     replyTakerAccount1: replyTakerAccount1,
     replyTakerAccount2: replyTakerAccount2,
-    replyTakerAccount3: replyTakerAccount3
+    replyTakerAccount3: replyTakerAccount3,
+    extractTakingRequest: extractTakingRequest
 };

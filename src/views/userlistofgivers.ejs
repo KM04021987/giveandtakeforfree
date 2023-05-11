@@ -279,9 +279,15 @@
             </div>
             <% if(data.GIVER_PHONE_NO_DISPLAY == 'N') { %>
                 <% if ((data.TAKER_ACCOUNT1 == account && data.TAKER_ACCOUNT1_ACCESS_TO_PHONE_NO == 'Y') || (data.TAKER_ACCOUNT2 == account && data.TAKER_ACCOUNT2_ACCESS_TO_PHONE_NO == 'Y') || (data.TAKER_ACCOUNT3 == account && data.TAKER_ACCOUNT3_ACCESS_TO_PHONE_NO == 'Y')) { %>
-                    <div class="form-group">
-                        <button type="submit" id="btn" value="<%=data.ITEM_NO%>" class="btn btn-primary btn-sm" onclick="changeButton(this)">CANCEL the request to show the contact number</button>
-                    </div>
+                    <% if ((data.TAKER_ACCOUNT1 == account && data.TAKER_ACCOUNT1_RESPONSE_TO_PHONE_NO == 'Y') || (data.TAKER_ACCOUNT2 == account && data.TAKER_ACCOUNT2_RESPONSE_TO_PHONE_NO == 'Y') || (data.TAKER_ACCOUNT3 == account && data.TAKER_ACCOUNT3_RESPONSE_TO_PHONE_NO == 'Y')) { %>
+                        <div class="form-group">
+                            <button type="button" id="btn" class="btn btn-success btn-sm" disabled>Phone number is shown. Please call to proceed</button>
+                        </div>   
+                    <% } else {%>
+                        <div class="form-group">
+                            <button type="submit" id="btn" value="<%=data.ITEM_NO%>" class="btn btn-primary btn-sm" onclick="changeButton(this)">CANCEL the request to show the contact number</button>
+                        </div>
+                    <% } %>
                 <% } else {%>
                     <div class="form-group">
                         <button type="submit" id="btn" value="<%=data.ITEM_NO%>" class="btn btn-primary btn-sm" onclick="changeButton(this)">REQUEST to allow to view the contact number</button>

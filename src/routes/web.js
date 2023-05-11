@@ -69,6 +69,8 @@ let initWebRoutes = (app) => {
     router.post('/show-list-of-givers/:id', profileController.showListOfGivers);
     router.post('/show-list-of-givers/requestContactNumber/:id', profileController.requestContactNumber)
 
+    router.get("/get-taking-history/:id", profileController.getTakingHistory);
+
 /*My Profile - Ends*/
     
     return app.use("/", router);

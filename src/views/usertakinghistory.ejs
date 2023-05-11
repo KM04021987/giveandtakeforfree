@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taking History</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <link href="/css/userprofilepage.css" rel="stylesheet" type="text/css">
+
+<style>
+.accordion {
+  background-color: rgb(244, 250, 252);
+  color: rgb(50, 50, 206);
+  cursor: pointer;
+  padding: 5px;
+  padding-left: 10px;
+  width: 100%;
+  text-align: left;
+  outline: none;
+  font-size: 14px;
+  font-weight: normal;
+  transition: 0.4s;
+  border: 1px solid rgb(222, 227, 233);
+  border-radius: 5px;
+}
+
+.accordion:hover {
+  background-color: rgb(229, 241, 247); 
+}
+
+.panel {
+  padding: 10px;
+  display: none;
+  background-color: white;
+  overflow: hidden;
+  border: 1px solid rgb(230, 235, 240);
+  border-radius: 5px;
+  padding-left: 20px;
+}
+
+.accordion:after {
+  content: '\002B';
+  color: black;
+  font-weight: bold;
+  float: left;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+</style>
+
+</head>
+
+<body>
+<div class="container">
+    <%- include("#userprofileheader.ejs"); %>
+    <%- include("#userprofilenavbar.ejs"); %>
+<div class="col-11 mx-auto">
+    <br>
+    <br>
+    <%
+    if(userData.length!=0){
+        var i=1;
+        userData.forEach(function(data){
+    %>
+    <% if (data.ITEM_STATUS == 'D') { %>
+      <button class="accordion">&nbsp;&nbsp;&nbsp;<%=data.ITEM_NAME%>&nbsp;(<%=data.ITEM_CATEGORY%>/<%=data.ITEM_SUBCATEGORY%>) <strong>[Item is Taken]</strong></button>      
+    <% } else {%>
+      <% if ((data.TAKER_ACCOUNT1 == account && data.TAKER_ACCOUNT1_RESPONSE_TO_PHONE_NO == 'Y') || (data.TAKER_ACCOUNT2 == account && data.TAKER_ACCOUNT2_RESPONSE_TO_PHONE_NO == 'Y') || (data.TAKER_ACCOUNT3 == account && data.TAKER_ACCOUNT3_RESPONSE_TO_PHONE_NO == 'Y')) { %>
+        <button class="accordion">&nbsp;&nbsp;&nbsp;<%=data.ITEM_NAME%>&nbsp;(<%=data.ITEM_CATEGORY%>/<%=data.ITEM_SUBCATEGORY%>) <strong>[Accepted by Giver]</strong></button>
+      <% } else {%>
+        <% if ((data.TAKER_ACCOUNT1 == account && data.TAKER_ACCOUNT1_ACCESS_TO_PHONE_NO == 'Y') || (data.TAKER_ACCOUNT2 == account && data.TAKER_ACCOUNT2_ACCESS_TO_PHONE_NO == 'Y') || (data.TAKER_ACCOUNT3 == account && data.TAKER_ACCOUNT3_ACCESS_TO_PHONE_NO == 'Y')) { %>
+          <button class="accordion">&nbsp;&nbsp;&nbsp;<%=data.ITEM_NAME%>&nbsp;(<%=data.ITEM_CATEGORY%>/<%=data.ITEM_SUBCATEGORY%>) <strong>[Pending with Giver]</strong></button>
+        <% } else {%>
+          <button class="accordion">&nbsp;&nbsp;&nbsp;<%=data.ITEM_NAME%>&nbsp;(<%=data.ITEM_CATEGORY%>/<%=data.ITEM_SUBCATEGORY%>)</button>
+        <% } %>
+        <% } %>
+        <% } %>
+
+    <div class="panel">
+        <div class="row">
+          <div class="col-sm-3"><h6 style="font-size: 14px;">Item Name</h6></div>
+          <div class="col-sm-9" style="font-size: 14px;">
+              <%=data.ITEM_NAME%>&nbsp;&nbsp;(<%=data.ITEM_CATEGORY%>/<%=data.ITEM_SUBCATEGORY%>)
+          </div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-sm-3"><h6 style="font-size: 14px;">Item Number</h6></div>
+          <div class="col-sm-9" style="font-size: 14px;">
+              <%=data.ITEM_NO%>
+          </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-3"><h6 style="font-size: 14px;">Item Posted on (Date & Time)</h6></div>
+            <div class="col-sm-9" style="font-size: 14px;">
+                <%=data.ADD_TS.substring(0,10)%> & <%=data.ADD_TS.substring(11,19)%>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-3"><h6 style="font-size: 14px;">Pickup Location</h6></div>
+            <div class="col-sm-9" style="font-size: 14px;"><%=data.GIVER_ADDRESS%><br><%=data.GIVER_CITY%>, <%=data.GIVER_STATE%><br><%=data.GIVER_COUNTRY%> <%=data.GIVER_PIN_OR_ZIP%></div>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-sm-3"><h6 style="font-size: 14px;">Contact Number</h6></div>
+          <% if (data.GIVER_PHONE_NO_DISPLAY == 'N') { %>
+              <% if ((data.TAKER_ACCOUNT1 == account && data.TAKER_ACCOUNT1_RESPONSE_TO_PHONE_NO == 'Y') || (data.TAKER_ACCOUNT2 == account && data.TAKER_ACCOUNT2_RESPONSE_TO_PHONE_NO == 'Y') || (data.TAKER_ACCOUNT3 == account && data.TAKER_ACCOUNT3_RESPONSE_TO_PHONE_NO == 'Y')) { %>
+                  <div class="col-sm-9" style="font-size: 14px;"><%=data.GIVER_PHONE_NO%></div>
+              <% } else {%>
+                  <div class="col-sm-9" style="font-size: 14px;">XXXXXXXXXX</div>
+              <% } %>
+            <% } else {%>
+              <div class="col-sm-9" style="font-size: 14px;"><%=data.GIVER_PHONE_NO%></div>
+          <% } %>
+        </div>
+        <br>
+        <div class="row">
+          <div class="col-sm-3"><h6 style="font-size: 14px;">Photo of the Item</h6></div>
+          <% if (data.IMAGE_CLOUDINARY_SECURE_URL > '') { %>
+            <div class="col-md-8 col-lg-7 col-xl-6">
+              <img src="<%=data.IMAGE_CLOUDINARY_SECURE_URL%>" class="img-fluid">
+            </div>
+          <% } else {%>
+            <div class="col-sm-9">
+              None
+            </div>
+          <% } %>
+        </div>
+        <br>
+    </div>
+    <%  i++; }) %>
+    <% } else{ %>
+    <h6 colspan="7">No giving history!</h6>
+    <% } %>
+    <br>
+    <br>
+    <br>
+</div>
+  <%- include("#userprofilefooter.ejs"); %>
+</div>
+
+<!-- Script for Accordion starts-->
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+    for (i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var panel = this.nextElementSibling;
+        if (panel.style.display === "block") {
+          panel.style.display = "none";
+        } else {
+          panel.style.display = "block";
+        }
+      });
+    }
+</script>
+<!-- Script for Accordion ends-->
+
+</body>
+</html>
